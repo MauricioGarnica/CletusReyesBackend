@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using CletusReyes.Models.Domain_Model.Size;
+using CletusReyes.Models.DTO.Size;
 
 namespace CletusReyes.Mappings
 {
@@ -6,7 +8,8 @@ namespace CletusReyes.Mappings
     {
         public AutoMapperProfiles()
         {
-            
+            //Sizes
+            CreateMap<TblSize, SizeResponseDto>().ReverseMap();
         }
     }
 }
