@@ -1,5 +1,6 @@
 using CletusReyes.Data;
 using CletusReyes.Mappings;
+using CletusReyes.Repositories.Category;
 using CletusReyes.Repositories.Size;
 using CletusReyes.Repositories.Token;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -47,8 +48,9 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 builder.Services.AddDbContext<CletusReyesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CletusReyesConnectionString")));
-builder.Services.AddDbContext<CletusReyesDataDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CletusReyesDataConnectionString")));
+builder.Services.AddDbContext<CletusReyesDataDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CletusReyesConnectionString")));
 builder.Services.AddScoped<ISizeRepository, SQLSizeRepository>();
+builder.Services.AddScoped<ICategoryRepository, SQLCategoryRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 builder.Services.AddIdentityCore<IdentityUser>().AddRoles<IdentityRole>().AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("CletusReyes")

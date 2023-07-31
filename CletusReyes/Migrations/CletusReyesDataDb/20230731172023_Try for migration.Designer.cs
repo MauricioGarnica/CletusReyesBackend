@@ -4,6 +4,7 @@ using CletusReyes.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CletusReyes.Migrations.CletusReyesDataDb
 {
     [DbContext(typeof(CletusReyesDataDbContext))]
-    partial class CletusReyesDataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230731172023_Try for migration")]
+    partial class Tryformigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,36 +24,6 @@ namespace CletusReyes.Migrations.CletusReyesDataDb
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Category.TblCategory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("Created_at")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("Updated_at")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserIdCreated")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserIdUpdated")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
-                });
 
             modelBuilder.Entity("CletusReyes.Models.Domain_Model.Size.TblSize", b =>
                 {
