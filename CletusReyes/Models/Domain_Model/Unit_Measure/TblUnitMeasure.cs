@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace CletusReyes.Models.Domain_Model.Size
+namespace CletusReyes.Models.Domain_Model.Unit_Measure
 {
-    public class TblSize
+    public class TblUnitMeasure
     {
         public Guid Id { get; set; }
-        public string Size { get; set; }
+        public string Name { get; set; }
         public bool Status { get; set; }
         public string? Created_at { get; set; }
         public string? UserIdCreated { get; set; }
