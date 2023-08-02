@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using CletusReyes.CustomActionFilters;
-using CletusReyes.Data;
 using CletusReyes.Models.Domain_Model.Unit_Measure;
 using CletusReyes.Models.DTO.Unit_Measure;
 using CletusReyes.Repositories.Unit_Measure;
@@ -16,13 +15,11 @@ namespace CletusReyes.Controllers
     {
         private readonly IUnitMeasureRepository unitMeasureRepository;
         private readonly IMapper mapper;
-        private readonly CletusReyesDataDbContext dbContext;
 
-        public UnitMeasureController(IUnitMeasureRepository unitMeasureRepository, IMapper mapper, CletusReyesDataDbContext dbContext)
+        public UnitMeasureController(IUnitMeasureRepository unitMeasureRepository, IMapper mapper)
         {
             this.unitMeasureRepository = unitMeasureRepository;
             this.mapper = mapper;
-            this.dbContext = dbContext;
         }
 
         [HttpGet]

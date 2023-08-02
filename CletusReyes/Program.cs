@@ -1,6 +1,7 @@
 using CletusReyes.Data;
 using CletusReyes.Mappings;
 using CletusReyes.Repositories.Category;
+using CletusReyes.Repositories.Provider;
 using CletusReyes.Repositories.Size;
 using CletusReyes.Repositories.Token;
 using CletusReyes.Repositories.Unit_Measure;
@@ -53,6 +54,7 @@ builder.Services.AddDbContext<CletusReyesDataDbContext>(options => options.UseSq
 builder.Services.AddScoped<ISizeRepository, SQLSizeRepository>();
 builder.Services.AddScoped<ICategoryRepository, SQLCategoryRepository>();
 builder.Services.AddScoped<IUnitMeasureRepository, SQLUnitMeasureRepository>();
+builder.Services.AddScoped<IProviderRepository, SQLProviderRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 builder.Services.AddIdentityCore<IdentityUser>().AddRoles<IdentityRole>().AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("CletusReyes")

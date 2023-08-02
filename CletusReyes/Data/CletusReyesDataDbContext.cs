@@ -1,4 +1,5 @@
 ﻿using CletusReyes.Models.Domain_Model.Category;
+using CletusReyes.Models.Domain_Model.Provider;
 using CletusReyes.Models.Domain_Model.Size;
 using CletusReyes.Models.Domain_Model.Unit_Measure;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ namespace CletusReyes.Data
         public DbSet<TblSize> Sizes { get; set; }
         public DbSet<TblCategory> Categories { get; set; }
         public DbSet<TblUnitMeasure> UnitMeasures { get; set; }
+        public DbSet<TblProvider> Providers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

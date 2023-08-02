@@ -4189,24 +4189,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\itscu\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Mauricio Garnica\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\itscu\\Documents\\Sistemas_ITSmartS\\Cursos\\CletusReyes\\CletusReyes\\CletusReyes.csproj",
+      "projectUniqueName": "C:\\Users\\Mauricio Garnica\\Documents\\School\\Integration_project\\CletusReyesBackend\\CletusReyes\\CletusReyes.csproj",
       "projectName": "CletusReyes",
-      "projectPath": "C:\\Users\\itscu\\Documents\\Sistemas_ITSmartS\\Cursos\\CletusReyes\\CletusReyes\\CletusReyes.csproj",
-      "packagesPath": "C:\\Users\\itscu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\itscu\\Documents\\Sistemas_ITSmartS\\Cursos\\CletusReyes\\CletusReyes\\obj\\",
+      "projectPath": "C:\\Users\\Mauricio Garnica\\Documents\\School\\Integration_project\\CletusReyesBackend\\CletusReyes\\CletusReyes.csproj",
+      "packagesPath": "C:\\Users\\Mauricio Garnica\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Mauricio Garnica\\Documents\\School\\Integration_project\\CletusReyesBackend\\CletusReyes\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\itscu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Mauricio Garnica\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
