@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using CletusReyes.Models.Domain_Model.Category;
 using CletusReyes.Models.Domain_Model.Provider;
+using CletusReyes.Models.Domain_Model.Raw_Material;
 using CletusReyes.Models.Domain_Model.Size;
 using CletusReyes.Models.Domain_Model.Unit_Measure;
 using CletusReyes.Models.DTO.Category;
 using CletusReyes.Models.DTO.Provider;
+using CletusReyes.Models.DTO.Raw_Material;
 using CletusReyes.Models.DTO.Size;
 using CletusReyes.Models.DTO.Unit_Measure;
 
@@ -29,6 +31,11 @@ namespace CletusReyes.Mappings
             CreateMap<TblProvider, ProviderResponseDto>().ReverseMap();
             CreateMap<TblProvider, AddProviderRequestDomainModel>().ReverseMap();
             CreateMap<TblProvider, UpdateProviderRequestDomainModel>().ReverseMap();
+
+            //Raw_Material
+            CreateMap<TblRawMaterial, RawMaterialResponseDto>().ReverseMap();
+            CreateMap<TblRawMaterial, AddRawMaterialRequestDomainModel>().ReverseMap();
+            CreateMap<TblRawMaterial, UpdateRawMaterialRequestDomainModel>().ReverseMap();
         }
     }
 }
