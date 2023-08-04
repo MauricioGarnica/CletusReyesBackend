@@ -16,7 +16,6 @@ namespace CletusReyes.Repositories.Raw_Material
         public async Task<List<TblRawMaterial>> GetAll()
         {
             var rawMaterials = dbContext.RawMaterials.Include("Providers").Include("UnitMeasures").AsQueryable();
-
             rawMaterials = rawMaterials.Where(rawMaterial => rawMaterial.Status == true);
 
             return await rawMaterials.ToListAsync();

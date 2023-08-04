@@ -68,7 +68,7 @@ namespace CletusReyes.Controllers
             try
             {
                 var unitMeasureDomainModel = mapper.Map<TblUnitMeasure>(addUnitMeasureRequestDomainModel);
-                await unitMeasureRepository.Create(unitMeasureDomainModel);
+                unitMeasureDomainModel = await unitMeasureRepository.Create(unitMeasureDomainModel);
 
                 return Ok(mapper.Map<UnitMeasureResponseDto>(unitMeasureDomainModel));
             }
