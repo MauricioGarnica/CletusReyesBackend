@@ -6,6 +6,7 @@ namespace CletusReyes.Models.Domain_Model.Size
     {
         public Guid Id { get; set; }
         public string Size { get; set; }
+        public string? Description { get; set; }
         public bool Status { get; set; }
         public string? Created_at { get; set; }
         public string? UserIdCreated { get; set; }

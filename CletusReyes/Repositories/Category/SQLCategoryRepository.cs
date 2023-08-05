@@ -37,34 +37,35 @@ namespace CletusReyes.Repositories.Category
 
         public async Task<TblCategory?> Update(Guid id, TblCategory tblCategory)
         {
-            var category = await dbContext.Categories.FirstOrDefaultAsync(category => category.Id == id);
+            var categoryUpdated = await dbContext.Categories.FirstOrDefaultAsync(category => category.Id == id);
 
-            if(category == null)
+            if(categoryUpdated == null)
             {
                 return null;
             }
 
-            category.Name = tblCategory.Name;
-            category.Description = tblCategory.Description;
-            category.Updated_at = DateTime.Now.ToString("G");
+            categoryUpdated.Name = tblCategory.Name;
+            categoryUpdated.Description = tblCategory.Description;
+            categoryUpdated.Updated_at = DateTime.Now.ToString("G");
             await dbContext.SaveChangesAsync();
 
-            return category;
+            return categoryUpdated;
         }
 
         public async Task<TblCategory?> Delete(Guid id)
         {
-            var category = await dbContext.Categories.FirstOrDefaultAsync(category => category.Id == id);
+            var categoryDeleted = await dbContext.Categories.FirstOrDefaultAsync(category => category.Id == id);
 
-            if (category == null)
+            if (categoryDeleted == null)
             {
                 return null;
             }
 
-            category.Status = false;
+            categoryDeleted.Status = false;
+            categoryDeleted.Updated_at = DateTime.Now.ToString("G");
             await dbContext.SaveChangesAsync();
 
-            return category;
+            return categoryDeleted;
         }
     }
 }

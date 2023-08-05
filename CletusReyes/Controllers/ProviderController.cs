@@ -24,11 +24,11 @@ namespace CletusReyes.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] bool? filterQuery)
+        public async Task<IActionResult> GetAll()
         {
             try
             {
-                var providerDomainModel = await providerRepository.GetAll(filterOn, filterQuery ?? true);
+                var providerDomainModel = await providerRepository.GetAll();
 
                 return Ok(mapper.Map<ProviderResponseDto>(providerDomainModel));
             }

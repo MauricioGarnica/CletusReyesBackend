@@ -13,17 +13,11 @@ namespace CletusReyes.Repositories.Provider
             this.dbContext = dbContext;
         }
 
-        public async Task<List<TblProvider>> GetAll(string? filterOn = null, bool filterQuery = true)
+        public async Task<List<TblProvider>> GetAll()
         {
             var providers = dbContext.Providers.AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(filterOn))
-            {
-                if (filterOn.Equals("Status", StringComparison.OrdinalIgnoreCase))
-                {
-                    providers = providers.Where(provider => provider.Status.Equals(filterQuery));
-                }
-            }
+            providers = providers.Where(provider => provider.Status == true);
 
             return await providers.ToListAsync();
         }
@@ -44,38 +38,39 @@ namespace CletusReyes.Repositories.Provider
 
         public async Task<TblProvider?> Update(Guid id, TblProvider tblProvider)
         {
-            var providerExists = await dbContext.Providers.FirstOrDefaultAsync(provider => provider.Id == id);
+            var providerUpdated = await dbContext.Providers.FirstOrDefaultAsync(provider => provider.Id == id);
 
-            if(providerExists == null)
+            if(providerUpdated == null)
             {
                 return null;
             }
 
-            providerExists.BusinessName = tblProvider.BusinessName;
-            providerExists.ContactName = tblProvider.ContactName;
-            providerExists.ContactEmail = tblProvider.ContactEmail;
-            providerExists.ContactPhone = tblProvider.ContactPhone;
-            providerExists.Address = tblProvider.Address;
-            providerExists.UserIdUpdated = tblProvider.UserIdUpdated;
-            providerExists.Updated_at = DateTime.Now.ToString("G");
+            providerUpdated.BusinessName = tblProvider.BusinessName;
+            providerUpdated.ContactName = tblProvider.ContactName;
+            providerUpdated.ContactEmail = tblProvider.ContactEmail;
+            providerUpdated.ContactPhone = tblProvider.ContactPhone;
+            providerUpdated.Address = tblProvider.Address;
+            providerUpdated.UserIdUpdated = tblProvider.UserIdUpdated;
+            providerUpdated.Updated_at = DateTime.Now.ToString("G");
             await dbContext.SaveChangesAsync();
 
-            return providerExists;
+            return providerUpdated;
         }
 
         public async Task<TblProvider?> Delete(Guid id)
         {
-            var providerExists = await dbContext.Providers.FirstOrDefaultAsync(provider => provider.Id == id);
+            var providerDelete = await dbContext.Providers.FirstOrDefaultAsync(provider => provider.Id == id);
 
-            if (providerExists == null)
+            if (providerDelete == null)
             {
                 return null;
             }
 
-            dbContext.Providers.Remove(providerExists);
+            providerDelete.Status = false;
+            providerDelete.Updated_at = DateTime.Now.ToString("G");
             await dbContext.SaveChangesAsync();
 
-            return providerExists;
+            return providerDelete;
         }
     }
 }

@@ -18,6 +18,8 @@ namespace CletusReyes.Mappings
         {
             //Sizes
             CreateMap<TblSize, SizeResponseDto>().ReverseMap();
+            CreateMap<TblSize, AddSizeRequestDomainModel>().ReverseMap();
+            CreateMap<TblSize, UpdateSizeRequestDomainModel>().ReverseMap();
 
             //Categories
             CreateMap<TblCategory, CategoryResponseDto>().ReverseMap();
