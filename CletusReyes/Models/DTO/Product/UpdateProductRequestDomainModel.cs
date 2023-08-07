@@ -1,6 +1,6 @@
 ﻿namespace CletusReyes.Models.DTO.Product
 {
-    public class AddProductRequestDomainModel
+    public class UpdateProductRequestDomainModel
     {
         public string Name { get; set; }
         public string? Description { get; set; }
@@ -8,8 +8,6 @@
         public int MinValue { get; set; }
         public int MaxValue { get; set; }
         public int Quantity { get; set; }
-        public string? UserIdCreated { get; set; }
-        public string CategoryId { get; set; }
-        public string SizeId { get; set; }
+        public string? UserIdUpdated { get; set; }
     }
 }

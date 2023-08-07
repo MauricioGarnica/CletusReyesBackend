@@ -30,7 +30,7 @@ namespace CletusReyes.Controllers
             {
                 var unitMeasuresDomainModel = await unitMeasureRepository.GetAll();
 
-                return Ok(mapper.Map<UnitMeasureResponseDto>(unitMeasuresDomainModel));
+                return Ok(mapper.Map<List<UnitMeasureResponseDto>>(unitMeasuresDomainModel));
             }
             catch(Exception ex)
             {

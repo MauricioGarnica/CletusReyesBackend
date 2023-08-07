@@ -25,6 +25,8 @@ namespace CletusReyes.Mappings
 
             //Categories
             CreateMap<TblCategory, CategoryResponseDto>().ReverseMap();
+            CreateMap<TblCategory, AddCategoryRequestDomainModel>().ReverseMap();
+            CreateMap<TblCategory, UpdateCategoryRequestDomainModel>().ReverseMap();
 
             //Unit of measure
             CreateMap<TblUnitMeasure, UnitMeasureResponseDto>().ReverseMap();

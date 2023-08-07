@@ -29,6 +29,7 @@ namespace CletusReyes.Repositories.Category
         public async Task<TblCategory> Create(TblCategory tblCategory)
         {
             tblCategory.Created_at = DateTime.Now.ToString("G");
+            tblCategory.Status = true;
             await dbContext.Categories.AddAsync(tblCategory);
             await dbContext.SaveChangesAsync();
 

@@ -40,7 +40,7 @@ namespace CletusReyes.Controllers
         }
 
         [HttpGet]
-        [Route("id:Guid")]
+        [Route("{id:Guid}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetById([FromRoute]Guid id)
         {
@@ -107,7 +107,7 @@ namespace CletusReyes.Controllers
         [HttpDelete]
         [Route("{id:Guid}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete([FromRoute]Guid id)
         {
             try
             {

@@ -30,7 +30,7 @@ namespace CletusReyes.Controllers
             {
                 var rawMaterialDomainModel = await rawMaterialRepository.GetAll();
 
-                return Ok(mapper.Map<RawMaterialResponseDto>(rawMaterialDomainModel));
+                return Ok(mapper.Map<List<RawMaterialResponseDto>>(rawMaterialDomainModel));
             }
             catch (Exception ex)
             {

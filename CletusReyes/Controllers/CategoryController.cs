@@ -39,7 +39,7 @@ namespace CletusReyes.Controllers
         }
 
         [HttpGet]
-        [Route("id:Guid")]
+        [Route("{id:Guid}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {

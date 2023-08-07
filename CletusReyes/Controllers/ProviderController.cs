@@ -30,7 +30,7 @@ namespace CletusReyes.Controllers
             {
                 var providerDomainModel = await providerRepository.GetAll();
 
-                return Ok(mapper.Map<ProviderResponseDto>(providerDomainModel));
+                return Ok(mapper.Map<List<ProviderResponseDto>>(providerDomainModel));
             }
             catch (Exception ex)
             {
