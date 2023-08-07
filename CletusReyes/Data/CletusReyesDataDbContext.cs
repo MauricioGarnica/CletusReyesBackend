@@ -1,4 +1,5 @@
 ﻿using CletusReyes.Models.Domain_Model.Category;
+using CletusReyes.Models.Domain_Model.Product;
 using CletusReyes.Models.Domain_Model.Provider;
 using CletusReyes.Models.Domain_Model.Raw_Material;
 using CletusReyes.Models.Domain_Model.Size;
@@ -19,6 +20,7 @@ namespace CletusReyes.Data
         public DbSet<TblUnitMeasure> UnitMeasures { get; set; }
         public DbSet<TblProvider> Providers { get; set; }
         public DbSet<TblRawMaterial> RawMaterials { get; set; }
+        public DbSet<TblProduct> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
