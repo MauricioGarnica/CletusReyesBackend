@@ -30,6 +30,7 @@ namespace CletusReyes.Repositories.Provider
         public async Task<TblProvider> Create(TblProvider tblProvider)
         {
             tblProvider.Created_at = DateTime.Now.ToString("G");
+            tblProvider.Status = true;
             await dbContext.Providers.AddAsync(tblProvider);
             await dbContext.SaveChangesAsync();
 

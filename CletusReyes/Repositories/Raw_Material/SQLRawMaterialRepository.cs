@@ -15,7 +15,7 @@ namespace CletusReyes.Repositories.Raw_Material
 
         public async Task<List<TblRawMaterial>> GetAll()
         {
-            var rawMaterials = dbContext.RawMaterials.Include("Providers").Include("UnitMeasures").AsQueryable();
+            var rawMaterials = dbContext.RawMaterials.Include("Provider").Include("UnitMeasure").AsQueryable();
             rawMaterials = rawMaterials.Where(rawMaterial => rawMaterial.Status == true);
 
             return await rawMaterials.ToListAsync();
@@ -29,6 +29,7 @@ namespace CletusReyes.Repositories.Raw_Material
         public async Task<TblRawMaterial> Create(TblRawMaterial tblRawMaterial)
         {
             tblRawMaterial.Created_at = DateTime.Now.ToString("G");
+            tblRawMaterial.Status = true;
             await dbContext.RawMaterials.AddAsync(tblRawMaterial);
             await dbContext.SaveChangesAsync();
 

@@ -4,6 +4,7 @@ using CletusReyes.Repositories.Category;
 using CletusReyes.Repositories.Product;
 using CletusReyes.Repositories.Provider;
 using CletusReyes.Repositories.Raw_Material;
+using CletusReyes.Repositories.Recipe;
 using CletusReyes.Repositories.Size;
 using CletusReyes.Repositories.Token;
 using CletusReyes.Repositories.Unit_Measure;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,6 +61,7 @@ builder.Services.AddScoped<IUnitMeasureRepository, SQLUnitMeasureRepository>();
 builder.Services.AddScoped<IProviderRepository, SQLProviderRepository>();
 builder.Services.AddScoped<IRawMaterialRepository, SQLRawMaterialRepository>();
 builder.Services.AddScoped<IProductRepository, SQLProductRepository>();
+builder.Services.AddScoped<IRecipeRepository, SQLRecipeRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 builder.Services.AddIdentityCore<IdentityUser>().AddRoles<IdentityRole>().AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("CletusReyes")
@@ -82,6 +85,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     ValidAudience = builder.Configuration["Jwt:Audience"],
     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
 });
+builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 

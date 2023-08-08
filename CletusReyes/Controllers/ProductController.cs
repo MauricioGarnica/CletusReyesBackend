@@ -107,7 +107,7 @@ namespace CletusReyes.Controllers
         [ValidateModel]
         [Route("{id:Guid}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateProductRequestDomainModel updateProductRequestDomainModel, [FromForm] UpdateProductImageRequestDomainModel updateProductImageRequestDomainModel)
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] UpdateProductRequestDomainModel updateProductRequestDomainModel, [FromForm] UpdateProductImageRequestDomainModel updateProductImageRequestDomainModel)
         {
             try
             {

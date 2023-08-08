@@ -4,6 +4,7 @@ using CletusReyes.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CletusReyes.Migrations.CletusReyesDataDb
 {
     [DbContext(typeof(CletusReyesDataDbContext))]
-    partial class CletusReyesDataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230807225918_Add Recipes Tables")]
+    partial class AddRecipesTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,38 +56,6 @@ namespace CletusReyes.Migrations.CletusReyesDataDb
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("ffbf969b-36bb-47b3-a3ee-840523779c01"),
-                            Name = "Guantes",
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = new Guid("3f98d5d2-f4be-4e0a-9b07-07f212973b0d"),
-                            Name = "Proteccion",
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = new Guid("68598c64-99c6-487c-b0f8-c0044c137596"),
-                            Name = "Costales de box",
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = new Guid("f63758e5-61e2-4bf3-925c-0cf137216fe6"),
-                            Name = "Coaching",
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = new Guid("35e3e543-5807-4805-890e-1d257fbeeee7"),
-                            Name = "Ropa y calzado",
-                            Status = true
-                        });
                 });
 
             modelBuilder.Entity("CletusReyes.Models.Domain_Model.Product.TblProduct", b =>
@@ -297,10 +268,6 @@ namespace CletusReyes.Migrations.CletusReyesDataDb
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
@@ -404,20 +371,6 @@ namespace CletusReyes.Migrations.CletusReyesDataDb
                     b.HasKey("Id");
 
                     b.ToTable("UnitMeasures");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("92743a31-78d1-4e8a-eb94-08db979fe8cb"),
-                            Name = "CM",
-                            Status = true
-                        },
-                        new
-                        {
-                            Id = new Guid("7220fd18-43fe-4880-eb95-08db979fe8cb"),
-                            Name = "PZ",
-                            Status = true
-                        });
                 });
 
             modelBuilder.Entity("CletusReyes.Models.Domain_Model.Product.TblProduct", b =>

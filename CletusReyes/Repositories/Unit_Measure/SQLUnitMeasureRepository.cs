@@ -36,6 +36,7 @@ namespace CletusReyes.Repositories.Unit_Measure
         public async Task<TblUnitMeasure> Create(TblUnitMeasure tblUnitMeasure)
         {
             tblUnitMeasure.Created_at = DateTime.Now.ToString("G");
+            tblUnitMeasure.Status = true;
             await dbContext.UnitMeasures.AddAsync(tblUnitMeasure);
             await dbContext.SaveChangesAsync();
 
