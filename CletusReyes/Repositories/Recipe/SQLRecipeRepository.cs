@@ -15,16 +15,13 @@ namespace CletusReyes.Repositories.Recipe
 
         public async Task<List<TblRecipeHeader>> GetAll()
         {
-            var recipes = dbContext.RecipeHeaders
-                .Include(recipe => recipe.Product)
-                    .ThenInclude(recipe => recipe.Size)
-                .Include(recipe => recipe.Product)
-                    .ThenInclude(recipe => recipe.Category)
-                .AsQueryable();
-
-            recipes = recipes.Where(recipe => recipe.Status == true);
-
-            return await recipes.ToListAsync();
+            return await dbContext.RecipeHeaders
+                                        .Include(header => header.Product)
+                                            .ThenInclude(product => product.Size)
+                                        .Include(header => header.Product)
+                                            .ThenInclude(product => product.Category)
+                                        .Where(header => header.Status)
+                                        .ToListAsync();
         }
 
         public async Task<TblRecipeHeader?> GetById(Guid id)

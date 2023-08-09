@@ -46,20 +46,59 @@ namespace CletusReyes.Repositories.Purchase_Order
             return tblPurchaseOrderHeader;
         }
 
-        public async Task<TblPurchaseOrderHeader?> Update(Guid id, Guid newStatus)
+        public async Task<List<string>?> Update(Guid id, Guid newStatus)
         {
-            var purchaseOrderUpdated = await dbContext.PurchaseOrderHeaders.FirstOrDefaultAsync(header => header.Id == id);
+            var purchaseOrderUpdated = await dbContext.PurchaseOrderHeaders
+                                                        .Include(header => header.Details)
+                                                            .ThenInclude(detail => detail.RawMaterial)
+                                                        .FirstOrDefaultAsync(header => header.Id == id);
 
             if(purchaseOrderUpdated == null)
             {
-                return null;
+                return new List<string>
+                {
+                    "0", $"Purchase Order with Id: {id} not found"
+                };
             }
 
-            purchaseOrderUpdated.PurchaseOrderStatusId = newStatus;
-            purchaseOrderUpdated.Updated_at = DateTime.Now.ToString("G");
-            await dbContext.SaveChangesAsync();
-            
-            return purchaseOrderUpdated;
+            if (!newStatus.Equals(Guid.Parse("5E257C72-E959-4D0D-9894-1C8682515A3A")))
+            {
+                purchaseOrderUpdated.PurchaseOrderStatusId = newStatus;
+                purchaseOrderUpdated.Updated_at = DateTime.Now.ToString("G");
+                await dbContext.SaveChangesAsync();
+
+                return new List<string>
+                {
+                    "1", $"Purchase order with Id: {id} was updated"
+                };
+            }
+            else
+            {
+                var rawMaterialsShortage = purchaseOrderUpdated.Details
+                                            .Where(detail => detail.RawMaterial.Quantity + detail.Quantity > detail.RawMaterial.MaxValue)
+                                            .Select(detail => detail.RawMaterial.Name);
+                if(rawMaterialsShortage.Any())
+                {
+                    string rawMaterialsList = string.Join(", ", rawMaterialsShortage);
+                    return new List<string>
+                    {
+                        "0", $"This purchase order cannot be made, because the following raw materials are more than maximum value required in stock: {rawMaterialsList}"
+                    };
+                }
+                else
+                {
+                    foreach(var detail in purchaseOrderUpdated.Details)
+                    {
+                        detail.RawMaterial.Quantity += detail.Quantity;
+                    }
+                    await dbContext.SaveChangesAsync();
+
+                    return new List<string>
+                    {
+                        "1", $"Purchase order has been updated with Id:{id}, and raw material quantities have been stored"
+                    };
+                }
+            }
         }
 
         public async Task<TblPurchaseOrderHeader?> Delete(Guid id)
