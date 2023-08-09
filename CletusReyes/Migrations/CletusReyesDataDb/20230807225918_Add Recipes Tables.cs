@@ -52,7 +52,7 @@ namespace CletusReyes.Migrations.CletusReyesDataDb
                         column: x => x.RawMaterialId,
                         principalTable: "RawMaterials",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_RecipeDetails_RecipeHeaders_RecipeHeaderId",
                         column: x => x.RecipeHeaderId,

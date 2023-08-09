@@ -4,6 +4,7 @@ using CletusReyes.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,11 +12,12 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CletusReyes.Migrations.CletusReyesDataDb
 {
     [DbContext(typeof(CletusReyesDataDbContext))]
-    partial class CletusReyesDataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230809090211_Add Purchase Order Tables")]
+    partial class AddPurchaseOrderTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
-
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.9")
@@ -590,7 +592,7 @@ namespace CletusReyes.Migrations.CletusReyesDataDb
                     b.HasOne("CletusReyes.Models.Domain_Model.Raw_Material.TblRawMaterial", "RawMaterial")
                         .WithMany()
                         .HasForeignKey("RawMaterialId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("PurchaseOrderHeader");

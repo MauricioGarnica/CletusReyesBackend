@@ -3,6 +3,7 @@ using CletusReyes.Mappings;
 using CletusReyes.Repositories.Category;
 using CletusReyes.Repositories.Product;
 using CletusReyes.Repositories.Provider;
+using CletusReyes.Repositories.Purchase_Order;
 using CletusReyes.Repositories.Raw_Material;
 using CletusReyes.Repositories.Recipe;
 using CletusReyes.Repositories.Size;
@@ -62,6 +63,7 @@ builder.Services.AddScoped<IProviderRepository, SQLProviderRepository>();
 builder.Services.AddScoped<IRawMaterialRepository, SQLRawMaterialRepository>();
 builder.Services.AddScoped<IProductRepository, SQLProductRepository>();
 builder.Services.AddScoped<IRecipeRepository, SQLRecipeRepository>();
+builder.Services.AddScoped<IPurchaseOrderRepository, SQLPurchaseOrderRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 builder.Services.AddIdentityCore<IdentityUser>().AddRoles<IdentityRole>().AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("CletusReyes")
