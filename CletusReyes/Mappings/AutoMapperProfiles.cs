@@ -53,9 +53,11 @@ namespace CletusReyes.Mappings
             //Recipes
             CreateMap<TblRecipeHeader, RecipeHeaderResponseDto>().ReverseMap();
             CreateMap<TblRecipeHeader, AddRecipeHeaderRequestDomainModel>().ReverseMap();
+            CreateMap<TblRecipeHeader, UpdateRecipeHeaderRequestDomainModel>().ReverseMap();
             CreateMap<TblRecipeHeader, RecipeResponseDto>().ForMember(header => header.Details, opt => opt.MapFrom(src => src.Details));
             CreateMap<TblRecipeDetail, RecipeDetailResponseDto>().ReverseMap();
             CreateMap<TblRecipeDetail, AddRecipeDetailRequestDomainModel>().ReverseMap();
+            CreateMap<TblRecipeDetail, UpdateRecipeDetailRequestDomainModel>().ReverseMap();
         }
     }
 }

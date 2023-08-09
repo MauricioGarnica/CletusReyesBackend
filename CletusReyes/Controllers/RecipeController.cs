@@ -47,7 +47,7 @@ namespace CletusReyes.Controllers
             {
                 var recipeExists = await recipeRepository.GetById(id);
 
-                if(recipeExists == null)
+                if (recipeExists == null)
                 {
                     return NotFound();
                 }
@@ -63,7 +63,7 @@ namespace CletusReyes.Controllers
         [HttpPost]
         [ValidateModel]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([FromBody]AddRecipeHeaderRequestDomainModel addRecipeHeaderRequestDomainModel)
+        public async Task<IActionResult> Create([FromBody] AddRecipeHeaderRequestDomainModel addRecipeHeaderRequestDomainModel)
         {
             try
             {
@@ -73,7 +73,44 @@ namespace CletusReyes.Controllers
 
                 return Ok(mapper.Map<RecipeHeaderResponseDto>(recipeHeaderDomainModel));
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("MadeProduct/{id:Guid}/{quantityToMake:int}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> MadeProduct(Guid id, int quantityToMake)
+        {
+            try
+            {
+                var stringResponse = await recipeRepository.MadeProduct(id, quantityToMake);
+
+                return stringResponse == null ? NotFound() : stringResponse[0] == "0" ? BadRequest(stringResponse[1]) : Ok(stringResponse[1]);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [ValidateModel]
+        [Route("{id:Guid}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateRecipeHeaderRequestDomainModel updateRecipeHeaderRequestDomainModel)
+        {
+            try
+            {
+                var recipeHeaderDomainModel = mapper.Map<TblRecipeHeader>(updateRecipeHeaderRequestDomainModel);
+                var recipeDetailsDomainModel = mapper.Map<List<TblRecipeDetail>>(updateRecipeHeaderRequestDomainModel.Details);
+                recipeHeaderDomainModel = await recipeRepository.Update(id, recipeHeaderDomainModel, recipeDetailsDomainModel);
+
+                return Ok(mapper.Map<RecipeHeaderResponseDto>(recipeHeaderDomainModel));
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -88,14 +125,14 @@ namespace CletusReyes.Controllers
             {
                 var recipeDeleted = await recipeRepository.Delete(id);
 
-                if(recipeDeleted == null)
+                if (recipeDeleted == null)
                 {
                     return NotFound();
                 }
 
                 return Ok(mapper.Map<RecipeHeaderResponseDto>(recipeDeleted));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
