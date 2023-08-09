@@ -77,7 +77,8 @@ namespace CletusReyes.Controllers
                             {
                                 UserId = user.Id,
                                 UserName = user.UserName,
-                                JwtToken = jwt
+                                JwtToken = jwt,
+                                Roles = roles,
                             };
 
                             return Ok(response);
