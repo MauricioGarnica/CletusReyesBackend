@@ -4,8 +4,10 @@ using CletusReyes.Models.Domain_Model.Provider;
 using CletusReyes.Models.Domain_Model.Purchase_Order;
 using CletusReyes.Models.Domain_Model.Raw_Material;
 using CletusReyes.Models.Domain_Model.Recipe;
+using CletusReyes.Models.Domain_Model.Sale_Order;
 using CletusReyes.Models.Domain_Model.Size;
 using CletusReyes.Models.Domain_Model.Unit_Measure;
+using CletusReyes.Models.Domain_Model.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace CletusReyes.Data
@@ -28,10 +30,20 @@ namespace CletusReyes.Data
         public DbSet<TblPurchaseOrderHeader> PurchaseOrderHeaders { get; set; }
         public DbSet<TblPurchaseOrderDetail> PurchaseOrderDetails { get; set; }
         public DbSet<TblPurchaseOrderStatus> PurchaseOrderStatus { get; set; }
+        public DbSet<TblSaleOrderHeader> SaleOrderHeaders { get; set; }
+        public DbSet<TblSaleOrderDetail> SaleOrderDetails { get; set; }
+        public DbSet<TblSaleOrderStatus> SaleOrderStatus { get; set; }
+        public DbSet<TblUser> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<TblUser>(user =>
+            {
+                user.ToTable(name: "Users");
+                user.HasOne(user => user.SaleOrderHeader).WithOne(user => user.User);
+            });
 
             //Seed data for Sizes
             var sizes = new List<TblSize>()
@@ -154,6 +166,48 @@ namespace CletusReyes.Data
                 }
             };
             modelBuilder.Entity<TblPurchaseOrderStatus>().HasData(purchaseOrdersStatus);
+
+            //Seed data for Sale Order Status
+            var saleOrdersStatus = new List<TblSaleOrderStatus>()
+            {
+                new TblSaleOrderStatus
+                {
+                    Id = Guid.Parse("34e82473-b511-4b31-a94e-304130ee2ede"),
+                    Name = "PEDIDO",
+                    Created_at = DateTime.Now.ToString("G")
+                },
+                new TblSaleOrderStatus
+                {
+                    Id = Guid.Parse("bf341b19-7e2e-492e-8aef-ebab9c33fe09"),
+                    Name = "ELABORANDO",
+                    Created_at = DateTime.Now.ToString("G")
+                },
+                new TblSaleOrderStatus
+                {
+                    Id = Guid.Parse("aeb24d0e-7e62-4183-ace1-4401939ddce6"),
+                    Name = "EMPACANDO",
+                    Created_at = DateTime.Now.ToString("G")
+                },
+                new TblSaleOrderStatus
+                {
+                    Id = Guid.Parse("25a4b068-bc82-4684-8bc5-5c4087d487e4"),
+                    Name = "ENVIANDO",
+                    Created_at = DateTime.Now.ToString("G")
+                },
+                new TblSaleOrderStatus
+                {
+                    Id = Guid.Parse("d5f1c029-61cf-4273-a3d7-431c110e4f15"),
+                    Name = "ENTREGADO",
+                    Created_at = DateTime.Now.ToString("G")
+                },
+                new TblSaleOrderStatus
+                {
+                    Id = Guid.Parse("cb22b5ba-8792-4675-88bb-e33beb098b7d"),
+                    Name = "CANCELADO",
+                    Created_at = DateTime.Now.ToString("G")
+},
+            };
+            modelBuilder.Entity<TblSaleOrderStatus>().HasData(saleOrdersStatus);
         }
     }
 }

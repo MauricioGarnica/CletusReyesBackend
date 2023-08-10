@@ -6,6 +6,7 @@ using CletusReyes.Repositories.Provider;
 using CletusReyes.Repositories.Purchase_Order;
 using CletusReyes.Repositories.Raw_Material;
 using CletusReyes.Repositories.Recipe;
+using CletusReyes.Repositories.Sale_Order;
 using CletusReyes.Repositories.Size;
 using CletusReyes.Repositories.Token;
 using CletusReyes.Repositories.Unit_Measure;
@@ -64,6 +65,7 @@ builder.Services.AddScoped<IRawMaterialRepository, SQLRawMaterialRepository>();
 builder.Services.AddScoped<IProductRepository, SQLProductRepository>();
 builder.Services.AddScoped<IRecipeRepository, SQLRecipeRepository>();
 builder.Services.AddScoped<IPurchaseOrderRepository, SQLPurchaseOrderRepository>();
+builder.Services.AddScoped<ISaleOrderRepository, SQLSaleOrderRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 builder.Services.AddIdentityCore<IdentityUser>().AddRoles<IdentityRole>().AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("CletusReyes")
@@ -88,6 +90,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
 });
 builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+builder.Services.AddCors(x => x.AddDefaultPolicy(policy =>
+{
+    policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+}));
 
 var app = builder.Build();
 
@@ -97,6 +103,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors();
 
 app.UseHttpsRedirection();
 

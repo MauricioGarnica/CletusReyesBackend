@@ -5,6 +5,7 @@ using CletusReyes.Models.Domain_Model.Provider;
 using CletusReyes.Models.Domain_Model.Purchase_Order;
 using CletusReyes.Models.Domain_Model.Raw_Material;
 using CletusReyes.Models.Domain_Model.Recipe;
+using CletusReyes.Models.Domain_Model.Sale_Order;
 using CletusReyes.Models.Domain_Model.Size;
 using CletusReyes.Models.Domain_Model.Unit_Measure;
 using CletusReyes.Models.DTO.Category;
@@ -13,6 +14,7 @@ using CletusReyes.Models.DTO.Provider;
 using CletusReyes.Models.DTO.Purchase_Order;
 using CletusReyes.Models.DTO.Raw_Material;
 using CletusReyes.Models.DTO.Recipe;
+using CletusReyes.Models.DTO.Sale_Order;
 using CletusReyes.Models.DTO.Size;
 using CletusReyes.Models.DTO.Unit_Measure;
 
@@ -67,6 +69,13 @@ namespace CletusReyes.Mappings
             CreateMap<TblPurchaseOrderHeader, AddPurchaseOrderHeaderRequestDomainModel>().ReverseMap();
             CreateMap<TblPurchaseOrderDetail, PurchaseOrderDetailResponseDto>().ReverseMap();
             CreateMap<TblPurchaseOrderDetail, AddPurchaseOrderDetailRequestDomainModel>().ReverseMap();
+
+            //Sale orders
+            CreateMap<TblSaleOrderHeader, SaleOrderResponseDto>().ForMember(header => header.Details, opt => opt.MapFrom(src => src.Details));
+            CreateMap<TblSaleOrderHeader, SaleOrderHeaderResponseDto>().ReverseMap();
+            CreateMap<TblSaleOrderHeader, AddSaleOrderHeaderRequestDomainModel>().ReverseMap();
+            CreateMap<TblSaleOrderDetail, SaleOrderDetailResponseDto>().ReverseMap();
+            CreateMap<TblSaleOrderDetail, AddSaleOrderDetailRequestDomainModel>().ReverseMap();
         }
     }
 }
