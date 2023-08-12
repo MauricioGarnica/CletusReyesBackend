@@ -92,7 +92,7 @@ namespace CletusReyes.Repositories.Product
             using var stream = new FileStream(localFilePath, FileMode.Create);
             await tblProduct.File.CopyToAsync(stream);
 
-            var urlFilePath = $"{httpContextAccessor.HttpContext.Request.Scheme}:://{httpContextAccessor.HttpContext.Request.Host}{httpContextAccessor.HttpContext.Request.PathBase}/Images/{tblProduct.FileName}{tblProduct.FileExtension}";
+            var urlFilePath = $"{httpContextAccessor.HttpContext.Request.Scheme}://{httpContextAccessor.HttpContext.Request.Host}{httpContextAccessor.HttpContext.Request.PathBase}/Images/{tblProduct.FileName}{tblProduct.FileExtension}";
             tblProduct.FilePath = urlFilePath;
 
             return tblProduct;
