@@ -6,9 +6,9 @@ namespace CletusReyes.Repositories.Recipe
 {
     public class SQLRecipeRepository : IRecipeRepository
     {
-        private readonly CletusReyesDataDbContext dbContext;
+        private readonly CletusReyesDbContext dbContext;
 
-        public SQLRecipeRepository(CletusReyesDataDbContext dbContext)
+        public SQLRecipeRepository(CletusReyesDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

@@ -6,9 +6,9 @@ namespace CletusReyes.Repositories.Size
 {
     public class SQLSizeRepository : ISizeRepository
     {
-        private readonly CletusReyesDataDbContext dbContext;
+        private readonly CletusReyesDbContext dbContext;
 
-        public SQLSizeRepository(CletusReyesDataDbContext dbContext)
+        public SQLSizeRepository(CletusReyesDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

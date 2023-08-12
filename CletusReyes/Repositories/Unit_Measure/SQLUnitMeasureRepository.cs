@@ -6,9 +6,9 @@ namespace CletusReyes.Repositories.Unit_Measure
 {
     public class SQLUnitMeasureRepository : IUnitMeasureRepository
     {
-        private readonly CletusReyesDataDbContext dbContext;
+        private readonly CletusReyesDbContext dbContext;
 
-        public SQLUnitMeasureRepository(CletusReyesDataDbContext dbContext)
+        public SQLUnitMeasureRepository(CletusReyesDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

@@ -6,11 +6,11 @@ namespace CletusReyes.Repositories.Product
 {
     public class SQLProductRepository : IProductRepository
     {
-        private readonly CletusReyesDataDbContext dbContext;
+        private readonly CletusReyesDbContext dbContext;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public SQLProductRepository(CletusReyesDataDbContext dbContext, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor)
+        public SQLProductRepository(CletusReyesDbContext dbContext, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor)
         {
             this.dbContext = dbContext;
             this.webHostEnvironment = webHostEnvironment;

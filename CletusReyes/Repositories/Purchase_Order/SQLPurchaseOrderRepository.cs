@@ -6,9 +6,9 @@ namespace CletusReyes.Repositories.Purchase_Order
 {
     public class SQLPurchaseOrderRepository : IPurchaseOrderRepository
     {
-        private readonly CletusReyesDataDbContext dbContext;
+        private readonly CletusReyesDbContext dbContext;
 
-        public SQLPurchaseOrderRepository(CletusReyesDataDbContext dbContext)
+        public SQLPurchaseOrderRepository(CletusReyesDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

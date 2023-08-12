@@ -1,4 +1,4 @@
-﻿using CletusReyes.Models.Domain_Model.User;
+﻿using CletusReyes.Models.Domain_Model.Auth;
 
 namespace CletusReyes.Models.Domain_Model.Sale_Order
 {

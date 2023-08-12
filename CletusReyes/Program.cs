@@ -1,5 +1,7 @@
 using CletusReyes.Data;
 using CletusReyes.Mappings;
+using CletusReyes.Models.Domain_Model.Auth;
+using CletusReyes.Repositories.Auth;
 using CletusReyes.Repositories.Category;
 using CletusReyes.Repositories.Product;
 using CletusReyes.Repositories.Provider;
@@ -56,7 +58,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 builder.Services.AddDbContext<CletusReyesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CletusReyesConnectionString")));
-builder.Services.AddDbContext<CletusReyesDataDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CletusReyesConnectionString")));
+builder.Services.AddScoped<IAuthRepository, SQLAuthRepository>();
 builder.Services.AddScoped<ISizeRepository, SQLSizeRepository>();
 builder.Services.AddScoped<ICategoryRepository, SQLCategoryRepository>();
 builder.Services.AddScoped<IUnitMeasureRepository, SQLUnitMeasureRepository>();
@@ -68,17 +70,19 @@ builder.Services.AddScoped<IPurchaseOrderRepository, SQLPurchaseOrderRepository>
 builder.Services.AddScoped<ISaleOrderRepository, SQLSaleOrderRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
-builder.Services.AddIdentityCore<IdentityUser>().AddRoles<IdentityRole>().AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("CletusReyes")
-    .AddEntityFrameworkStores<CletusReyesDbContext>().AddDefaultTokenProviders();
-builder.Services.Configure<IdentityOptions>(options =>
+builder.Services.AddIdentityCore<TblUser>(options =>
 {
+    options.SignIn.RequireConfirmedAccount = true;
+
     options.Password.RequireDigit = false;
     options.Password.RequireLowercase = false;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
     options.Password.RequiredLength = 6;
     options.Password.RequiredUniqueChars = 1;
-});
+
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@._";
+}).AddRoles<TblRoles>().AddTokenProvider<DataProtectorTokenProvider<TblUser>>("CletusReyes").AddEntityFrameworkStores<CletusReyesDbContext>().AddDefaultTokenProviders();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
 {
     ValidateIssuer = true,

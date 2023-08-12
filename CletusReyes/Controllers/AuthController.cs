@@ -1,5 +1,7 @@
-﻿using CletusReyes.Models.DTO.Auth.Login;
+﻿using CletusReyes.Models.Domain_Model.Auth;
+using CletusReyes.Models.DTO.Auth.Login;
 using CletusReyes.Models.DTO.Auth.Register;
+using CletusReyes.Repositories.Auth;
 using CletusReyes.Repositories.Token;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -11,12 +13,14 @@ namespace CletusReyes.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<TblUser> userManager;
+        private readonly IAuthRepository authRepository;
         private readonly ITokenRepository tokenRepository;
 
-        public AuthController(UserManager<IdentityUser> userManager, ITokenRepository tokenRepository)
+        public AuthController(UserManager<TblUser> userManager, IAuthRepository authRepository, ITokenRepository tokenRepository)
         {
             this.userManager = userManager;
+            this.authRepository = authRepository;
             this.tokenRepository = tokenRepository;
         }
 
@@ -26,29 +30,34 @@ namespace CletusReyes.Controllers
         {
             try
             {
-                var identityUser = new IdentityUser
+                var identityUser = new TblUser
                 {
                     UserName = registerRequestDto.Username,
-                    Email = registerRequestDto.Email,
+                    Email = registerRequestDto.Email
                 };
                 var identityResult = await userManager.CreateAsync(identityUser, registerRequestDto.Password);
 
-                if(identityResult.Succeeded)
+                if (identityResult.Succeeded)
                 {
-                    if(registerRequestDto.Roles != null && registerRequestDto.Roles.Any())
+                    if (registerRequestDto.Roles != null && registerRequestDto.Roles.Any())
                     {
-                        identityResult = await userManager.AddToRolesAsync(identityUser, registerRequestDto.Roles);
+                        var result = await authRepository.AddUserToRoles(identityUser.Id, registerRequestDto.Roles);
 
-                        if (identityResult.Succeeded)
+                        if (result)
                         {
                             return Ok("User was register :D");
                         }
                     }
                 }
+                else if (identityResult.Errors != null)
+                {
+                    var errors = string.Join(',', identityResult.Errors);
+                    return BadRequest(errors);
+                }
 
                 return BadRequest("Something went wrong :c");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -62,17 +71,17 @@ namespace CletusReyes.Controllers
             {
                 var user = await userManager.FindByEmailAsync(loginRequestDto.Email);
 
-                if(user != null)
+                if (user != null)
                 {
                     var checkPasswordResult = await userManager.CheckPasswordAsync(user, loginRequestDto.Password);
 
                     if (checkPasswordResult)
                     {
-                        var roles = await userManager.GetRolesAsync(user);
+                        var roles = await authRepository.GetRoles(user.Id);
 
-                        if(roles != null && roles.Any())
+                        if (roles != null && roles.Any())
                         {
-                            var jwt = tokenRepository.CreateJwt(user, roles.ToList());
+                            var jwt = tokenRepository.CreateJwt(user, roles);
                             var response = new LoginResponseDto
                             {
                                 UserId = user.Id,
@@ -90,7 +99,7 @@ namespace CletusReyes.Controllers
 
                 return BadRequest("User not founded :c");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
