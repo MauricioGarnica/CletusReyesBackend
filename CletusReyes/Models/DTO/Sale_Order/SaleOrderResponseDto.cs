@@ -5,6 +5,7 @@ namespace CletusReyes.Models.DTO.Sale_Order
     public class SaleOrderResponseDto
     {
         public Guid Id { get; set; }
+        public string UserId { get; set; }
         public float Total { get; set; }
 
 

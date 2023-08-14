@@ -20,6 +20,8 @@ namespace CletusReyes.Repositories.Recipe
                                             .ThenInclude(product => product.Size)
                                         .Include(header => header.Product)
                                             .ThenInclude(product => product.Category)
+                                        .Include(header => header.Details)
+                                            .ThenInclude(detail => detail.RawMaterial)
                                         .Where(header => header.Status)
                                         .ToListAsync();
         }
@@ -36,6 +38,7 @@ namespace CletusReyes.Repositories.Recipe
         {
             tblRecipeHeader.Created_at = DateTime.Now.ToString("G");
             tblRecipeHeader.Status = true;
+            tblRecipeHeader.Details = null;
             await dbContext.RecipeHeaders.AddAsync(tblRecipeHeader);
             await dbContext.SaveChangesAsync();
 

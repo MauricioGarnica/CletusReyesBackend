@@ -67,7 +67,10 @@ namespace CletusReyes.Mappings
             CreateMap<TblRecipeDetail, UpdateRecipeDetailRequestDomainModel>().ReverseMap();
 
             //Purchase orders
-            CreateMap<TblPurchaseOrderHeader, PurchaseOrderResponseDto>().ForMember(header => header.Details, opt =>opt.MapFrom(src => src.Details));
+            CreateMap<TblPurchaseOrderStatus,  PurchaseOrderStatusResponseDto>().ReverseMap();
+            CreateMap<TblPurchaseOrderHeader, PurchaseOrderResponseDto>()
+                .ForMember(header => header.PurchaseOrderStatus, opt => opt.MapFrom(src => src.PurchaseOrderStatus))
+                .ForMember(header => header.Details, opt =>opt.MapFrom(src => src.Details));
             CreateMap<TblPurchaseOrderHeader, PurchaseOrderHeaderResponseDto>().ReverseMap();
             CreateMap<TblPurchaseOrderHeader, AddPurchaseOrderHeaderRequestDomainModel>().ReverseMap();
             CreateMap<TblPurchaseOrderDetail, PurchaseOrderDetailResponseDto>().ReverseMap();
@@ -75,10 +78,9 @@ namespace CletusReyes.Mappings
 
             //Sale orders
             CreateMap<TblSaleOrderStatus, SaleOrderStatusResponseDto>().ReverseMap();
-            CreateMap<TblSaleOrderHeader, SaleOrderResponseDto>().ReverseMap()
-                .ForMember(header => header.User, opt => opt.MapFrom(header => header.User))
-                .ForMember(header => header.SaleOrderStatus, opt => opt.MapFrom(header => header.SaleOrderStatus));
-            //CreateMap<TblSaleOrderHeader, SaleOrderResponseDto>().ForMember(header => header.Details, opt => opt.MapFrom(src => src.Details));
+            CreateMap<TblSaleOrderHeader, SaleOrderResponseDto>()
+                .ForMember(header => header.SaleOrderStatus, opt => opt.MapFrom(header => header.SaleOrderStatus))
+                .ForMember(header => header.Details, opt => opt.MapFrom(header => header.Details));
             CreateMap<TblSaleOrderHeader, SaleOrderHeaderResponseDto>().ReverseMap();
             CreateMap<TblSaleOrderHeader, AddSaleOrderHeaderRequestDomainModel>().ReverseMap();
             CreateMap<TblSaleOrderDetail, SaleOrderDetailResponseDto>().ReverseMap();

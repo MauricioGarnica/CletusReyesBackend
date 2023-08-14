@@ -48,7 +48,11 @@ namespace CletusReyes.Controllers
             {
                 var saleOrderDomainModel = await saleOrderRepository.GetAllByUser(id);
 
-                return Ok(saleOrderDomainModel);
+                //saleOrderDomainModel.ForEach(sale => sale.Details = null);
+
+                var saleOrderDto = mapper.Map<List<SaleOrderResponseDto>>(saleOrderDomainModel);
+
+                return Ok(saleOrderDto);
             }
             catch(Exception ex)
             {

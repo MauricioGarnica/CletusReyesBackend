@@ -30,7 +30,7 @@ namespace CletusReyes.Controllers
             {
                 var recipesDomainModel = await recipeRepository.GetAll();
 
-                return Ok(mapper.Map<List<RecipeHeaderResponseDto>>(recipesDomainModel));
+                return Ok(mapper.Map<List<RecipeResponseDto>>(recipesDomainModel));
             }
             catch (Exception ex)
             {
