@@ -36,8 +36,9 @@ namespace CletusReyes.Repositories.Purchase_Order
         {
             tblPurchaseOrderHeader.Status = true;
             tblPurchaseOrderHeader.Created_at = DateTime.Now.ToString("G");
+            tblPurchaseOrderHeader.PurchaseOrderStatusId = Guid.Parse("6967F493-61EF-41AF-B785-A9A8649E8767");
+            tblPurchaseOrderHeader.Details = null;
             await dbContext.PurchaseOrderHeaders.AddAsync(tblPurchaseOrderHeader);
-            await dbContext.SaveChangesAsync();
 
             tblPurchaseOrderDetails.ForEach(detail => detail.PurchaseOrderHeaderId = tblPurchaseOrderHeader.Id);
             await dbContext.PurchaseOrderDetails.AddRangeAsync(tblPurchaseOrderDetails);

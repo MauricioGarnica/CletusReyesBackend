@@ -30,7 +30,8 @@ namespace CletusReyes.Controllers
             {
                 var saleOrdersDomainModel = await saleOrderRepository.GetAll();
 
-                return Ok(mapper.Map<SaleOrderResponseDto>(saleOrdersDomainModel));
+                return Ok(saleOrdersDomainModel);
+                //return Ok(mapper.Map<SaleOrderResponseDto>(saleOrdersDomainModel));
             }
             catch (Exception ex)
             {

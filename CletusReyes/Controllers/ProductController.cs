@@ -23,7 +23,6 @@ namespace CletusReyes.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, Customer")]
         public async Task<IActionResult> GetAll()
         {
             try

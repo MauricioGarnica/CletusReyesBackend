@@ -18,6 +18,8 @@ namespace CletusReyes.Repositories.Sale_Order
             return await dbContext.SaleOrderHeaders
                                     .Include(header => header.User)
                                     .Include(header => header.SaleOrderStatus)
+                                    .Include(header => header.Details)
+                                        .ThenInclude(detail => detail.Product)
                                     .Where(header => header.Status)
                                     .ToListAsync();
         }
@@ -34,10 +36,11 @@ namespace CletusReyes.Repositories.Sale_Order
 
         public async Task<TblSaleOrderHeader> Create(TblSaleOrderHeader tblSaleOrderHeader, List<TblSaleOrderDetail> tblSaleOrderDetails)
         {
+            tblSaleOrderHeader.SaleOrderStatusId = Guid.Parse("34E82473-B511-4B31-A94E-304130EE2EDE");
             tblSaleOrderHeader.Status = true;
             tblSaleOrderHeader.Created_at = DateTime.Now.ToString("G");
+            tblSaleOrderHeader.Details = null;
             await dbContext.SaleOrderHeaders.AddAsync(tblSaleOrderHeader);
-            await dbContext.SaveChangesAsync();
 
             tblSaleOrderDetails.ForEach(detail => detail.SaleOrderHeaderId = tblSaleOrderHeader.Id);
             await dbContext.SaleOrderDetails.AddRangeAsync(tblSaleOrderDetails);

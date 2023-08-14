@@ -74,7 +74,11 @@ namespace CletusReyes.Mappings
             CreateMap<TblPurchaseOrderDetail, AddPurchaseOrderDetailRequestDomainModel>().ReverseMap();
 
             //Sale orders
-            CreateMap<TblSaleOrderHeader, SaleOrderResponseDto>().ForMember(header => header.Details, opt => opt.MapFrom(src => src.Details));
+            CreateMap<TblSaleOrderStatus, SaleOrderStatusResponseDto>().ReverseMap();
+            CreateMap<TblSaleOrderHeader, SaleOrderResponseDto>().ReverseMap()
+                .ForMember(header => header.User, opt => opt.MapFrom(header => header.User))
+                .ForMember(header => header.SaleOrderStatus, opt => opt.MapFrom(header => header.SaleOrderStatus));
+            //CreateMap<TblSaleOrderHeader, SaleOrderResponseDto>().ForMember(header => header.Details, opt => opt.MapFrom(src => src.Details));
             CreateMap<TblSaleOrderHeader, SaleOrderHeaderResponseDto>().ReverseMap();
             CreateMap<TblSaleOrderHeader, AddSaleOrderHeaderRequestDomainModel>().ReverseMap();
             CreateMap<TblSaleOrderDetail, SaleOrderDetailResponseDto>().ReverseMap();

@@ -34,56 +34,41 @@ namespace CletusReyes.Repositories.Auth
                 return null;
             }
 
-            var tokenEmail = await userManager.GenerateChangeEmailTokenAsync(userUpdated, updateUserRequestDomainModel.Email);
-            var resultEmail = await userManager.ChangeEmailAsync(userUpdated, updateUserRequestDomainModel.Email, tokenEmail);
+            var tokenPhoneNumber = await userManager.GenerateChangePhoneNumberTokenAsync(userUpdated, updateUserRequestDomainModel.PhoneNumber);
+            var resultPhoneNumber = await userManager.ChangePhoneNumberAsync(userUpdated, updateUserRequestDomainModel.PhoneNumber, tokenPhoneNumber);
 
-            if (resultEmail.Succeeded)
+            if (resultPhoneNumber.Succeeded)
             {
-                await userManager.UpdateNormalizedEmailAsync(userUpdated);
-                userUpdated.UserName = updateUserRequestDomainModel.UserName;
-                await userManager.UpdateNormalizedUserNameAsync(userUpdated);
+                var personUpdated = await dbContext.Persons.FirstOrDefaultAsync(person => person.User.Id == id);
+
+                if (personUpdated == null)
+                {
+                    var personAdded = new TblPerson
+                    {
+                        Address = updateUserRequestDomainModel.Address,
+                        LastName = updateUserRequestDomainModel.LastName,
+                        Name = updateUserRequestDomainModel.Name,
+                        State = updateUserRequestDomainModel.State,
+                        PostalCode = updateUserRequestDomainModel.PostalCode,
+                        Birthday = updateUserRequestDomainModel.Birthday,
+                        UserId = id
+                    };
+
+                    await dbContext.Persons.AddAsync(personAdded);
+                    await dbContext.SaveChangesAsync();
+
+                    return personAdded;
+                }
+
+                personUpdated.Name = updateUserRequestDomainModel.Name;
+                personUpdated.LastName = updateUserRequestDomainModel.LastName;
+                personUpdated.Address = updateUserRequestDomainModel.Address;
+                personUpdated.State = updateUserRequestDomainModel.State;
+                personUpdated.PostalCode = updateUserRequestDomainModel.PostalCode;
+                personUpdated.Birthday = updateUserRequestDomainModel.Birthday;
                 await dbContext.SaveChangesAsync();
 
-                var tokenPhoneNumber = await userManager.GenerateChangePhoneNumberTokenAsync(userUpdated, updateUserRequestDomainModel.PhoneNumber);
-                var resultPhoneNumber = await userManager.ChangePhoneNumberAsync(userUpdated, updateUserRequestDomainModel.PhoneNumber, tokenPhoneNumber);
-
-                if (resultPhoneNumber.Succeeded)
-                {
-                    var tokenPassword = await userManager.GeneratePasswordResetTokenAsync(userUpdated);
-                    var resultPassword = await userManager.ResetPasswordAsync(userUpdated, tokenPassword, updateUserRequestDomainModel.Password);
-
-                    if (resultPassword.Succeeded)
-                    {
-                        var personUpdated = await dbContext.Persons.FirstOrDefaultAsync(person => person.User.Id == id);
-
-                        if (personUpdated == null)
-                        {
-                            var persosAdded = new TblPerson
-                            {
-                                Address = updateUserRequestDomainModel.Address,
-                                LastName = updateUserRequestDomainModel.LastName,
-                                Name = updateUserRequestDomainModel.Name,
-                                PostalCode = updateUserRequestDomainModel.PostalCode,
-                                Birthday = updateUserRequestDomainModel.Birthday,
-                                UserId = id
-                            };
-
-                            await dbContext.Persons.AddAsync(persosAdded);
-                            await dbContext.SaveChangesAsync();
-
-                            return persosAdded;
-                        }
-
-                        personUpdated.Name = updateUserRequestDomainModel.Name;
-                        personUpdated.LastName = updateUserRequestDomainModel.LastName;
-                        personUpdated.Address = updateUserRequestDomainModel.Address;
-                        personUpdated.PostalCode = updateUserRequestDomainModel.PostalCode;
-                        personUpdated.Birthday = updateUserRequestDomainModel.Birthday;
-                        await dbContext.SaveChangesAsync();
-
-                        return personUpdated;
-                    }
-                }
+                return personUpdated;
             }
 
             return null;
