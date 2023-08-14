@@ -40,6 +40,23 @@ namespace CletusReyes.Controllers
         }
 
         [HttpGet]
+        [Route("GetByUser/{id}")]
+        [Authorize(Roles = "Admin, Customer")]
+        public async Task<IActionResult> GetAllByUser(string id)
+        {
+            try
+            {
+                var saleOrderDomainModel = await saleOrderRepository.GetAllByUser(id);
+
+                return Ok(saleOrderDomainModel);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
         [Route("{id:Guid}")]
         [Authorize(Roles = "Admin, Customer")]
         public async Task<IActionResult> GetById(Guid id)

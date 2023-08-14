@@ -24,6 +24,17 @@ namespace CletusReyes.Repositories.Sale_Order
                                     .ToListAsync();
         }
 
+        public async Task<List<TblSaleOrderHeader>> GetAllByUser(string id)
+        {
+            return await dbContext.SaleOrderHeaders
+                                    .Include(header => header.SaleOrderStatus)
+                                    .Include(header => header.Details)
+                                        .ThenInclude(detail => detail.Product)
+                                    .Where(header => header.Status)
+                                    .Where(header => header.UserId == id)
+                                    .ToListAsync();
+        }
+
         public async Task<TblSaleOrderHeader?> GetById(Guid id)
         {
             return await dbContext.SaleOrderHeaders
