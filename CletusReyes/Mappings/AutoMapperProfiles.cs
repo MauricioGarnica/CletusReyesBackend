@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using CletusReyes.Models.Domain_Model.Auth;
 using CletusReyes.Models.Domain_Model.Category;
+using CletusReyes.Models.Domain_Model.Person;
 using CletusReyes.Models.Domain_Model.Product;
 using CletusReyes.Models.Domain_Model.Provider;
 using CletusReyes.Models.Domain_Model.Purchase_Order;
@@ -17,6 +19,7 @@ using CletusReyes.Models.DTO.Recipe;
 using CletusReyes.Models.DTO.Sale_Order;
 using CletusReyes.Models.DTO.Size;
 using CletusReyes.Models.DTO.Unit_Measure;
+using CletusReyes.Models.DTO.User;
 
 namespace CletusReyes.Mappings
 {
@@ -76,6 +79,10 @@ namespace CletusReyes.Mappings
             CreateMap<TblSaleOrderHeader, AddSaleOrderHeaderRequestDomainModel>().ReverseMap();
             CreateMap<TblSaleOrderDetail, SaleOrderDetailResponseDto>().ReverseMap();
             CreateMap<TblSaleOrderDetail, AddSaleOrderDetailRequestDomainModel>().ReverseMap();
+
+            //Users
+            CreateMap<TblUser, UserResponseDto>().ReverseMap();
+            CreateMap<TblPerson, PersonResponseDto>().ReverseMap().ForMember(person => person.User, opt => opt.MapFrom(user => user.User));
         }
     }
 }

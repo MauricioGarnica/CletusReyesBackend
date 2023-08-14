@@ -1,5 +1,6 @@
 ﻿using CletusReyes.Models.Domain_Model.Auth;
 using CletusReyes.Models.Domain_Model.Category;
+using CletusReyes.Models.Domain_Model.Person;
 using CletusReyes.Models.Domain_Model.Product;
 using CletusReyes.Models.Domain_Model.Provider;
 using CletusReyes.Models.Domain_Model.Purchase_Order;
@@ -16,7 +17,7 @@ namespace CletusReyes.Data
     {
         public CletusReyesDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
         {
-            
+
         }
 
         public DbSet<TblSize> Sizes { get; set; }
@@ -34,6 +35,7 @@ namespace CletusReyes.Data
         public DbSet<TblSaleOrderDetail> SaleOrderDetails { get; set; }
         public DbSet<TblSaleOrderStatus> SaleOrderStatus { get; set; }
         public DbSet<TblUser> Users { get; set; }
+        public DbSet<TblPerson> Persons { get; set; }
         public DbSet<TblRoles> Roles { get; set; }
         public DbSet<TblUserRoles> UserRoles { get; set; }
 

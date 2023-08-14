@@ -16,6 +16,6 @@ namespace CletusReyes.Models.DTO.Auth.Register
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        public List<string> Roles { get; set; }
+        public List<string?> Roles { get; set; }
     }
 }

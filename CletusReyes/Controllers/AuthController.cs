@@ -1,8 +1,11 @@
-﻿using CletusReyes.Models.Domain_Model.Auth;
+﻿using AutoMapper;
+using CletusReyes.Models.Domain_Model.Auth;
 using CletusReyes.Models.DTO.Auth.Login;
 using CletusReyes.Models.DTO.Auth.Register;
+using CletusReyes.Models.DTO.User;
 using CletusReyes.Repositories.Auth;
 using CletusReyes.Repositories.Token;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +19,14 @@ namespace CletusReyes.Controllers
         private readonly UserManager<TblUser> userManager;
         private readonly IAuthRepository authRepository;
         private readonly ITokenRepository tokenRepository;
+        private readonly IMapper mapper;
 
-        public AuthController(UserManager<TblUser> userManager, IAuthRepository authRepository, ITokenRepository tokenRepository)
+        public AuthController(UserManager<TblUser> userManager, IAuthRepository authRepository, ITokenRepository tokenRepository, IMapper mapper)
         {
             this.userManager = userManager;
             this.authRepository = authRepository;
             this.tokenRepository = tokenRepository;
+            this.mapper = mapper;
         }
 
         [HttpPost]
@@ -45,7 +50,16 @@ namespace CletusReyes.Controllers
 
                         if (result)
                         {
-                            return Ok("User was register :D");
+                            var jwt = tokenRepository.CreateJwt(identityUser, registerRequestDto.Roles);
+
+                            var response = new LoginResponseDto
+                            {
+                                UserId = identityUser.Id,
+                                UserName = identityUser.UserName,
+                                Rol = registerRequestDto.Roles[0],
+                                JwtToken = jwt
+                            };
+                            return Ok(response);
                         }
                     }
                 }
@@ -56,6 +70,26 @@ namespace CletusReyes.Controllers
                 }
 
                 return BadRequest("Something went wrong :c");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("Update/{id}")]
+        [Authorize(Roles = "Admin, Customer")]
+        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] UpdateUserRequestDomainModel updateUserRequestDomainModel)
+        {
+            try
+            {
+                var personDomainModel = await authRepository.Update(id, updateUserRequestDomainModel);
+                var roles = await authRepository.GetRoles(personDomainModel.User.Id);
+                var personResponseDto = mapper.Map<PersonResponseDto>(personDomainModel);
+                personResponseDto.Rol = roles[0];
+
+                return personDomainModel == null ? NotFound() : Ok(personResponseDto);
             }
             catch (Exception ex)
             {
@@ -81,7 +115,18 @@ namespace CletusReyes.Controllers
 
                         if (roles != null && roles.Any())
                         {
+                            var personLogin = await authRepository.GetById(user.Id);
                             var jwt = tokenRepository.CreateJwt(user, roles);
+
+                            if (personLogin != null)
+                            {
+                                var responsePerson = mapper.Map<PersonResponseDto>(personLogin);
+                                responsePerson.Rol = roles[0];
+                                responsePerson.Token = jwt;
+
+                                return Ok(responsePerson);
+                            }
+                            
                             var response = new LoginResponseDto
                             {
                                 UserId = user.Id,
