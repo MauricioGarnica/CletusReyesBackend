@@ -13,7 +13,7 @@ namespace CletusReyes.Migrations
 {
     [DbContext(typeof(CletusReyesDbContext))]
     [Migration("20230813224635_Add Person table")]
-    partial class AddPersontable
+    partial class AddPersonstable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -197,7 +197,7 @@ namespace CletusReyes.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Person.TblPerson", b =>
+            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Person.TblPersons", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -231,7 +231,7 @@ namespace CletusReyes.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Person");
+                    b.ToTable("Persons");
                 });
 
             modelBuilder.Entity("CletusReyes.Models.Domain_Model.Product.TblProduct", b =>
@@ -864,7 +864,7 @@ namespace CletusReyes.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Person.TblPerson", b =>
+            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Person.TblPersons", b =>
                 {
                     b.HasOne("CletusReyes.Models.Domain_Model.Auth.TblUser", "User")
                         .WithMany()

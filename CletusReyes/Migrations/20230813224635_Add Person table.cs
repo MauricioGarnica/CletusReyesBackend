@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CletusReyes.Migrations
 {
     /// <inheritdoc />
-    public partial class AddPersontable : Migration
+    public partial class AddPersonstable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -175,8 +175,8 @@ namespace CletusReyes.Migrations
                 value: "8/13/2023 4:46:34 PM");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Person_UserId",
-                table: "Person",
+                name: "IX_Persons_UserId",
+                table: "Persons",
                 column: "UserId");
         }
 
