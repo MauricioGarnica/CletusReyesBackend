@@ -84,8 +84,8 @@ namespace CletusReyes.Repositories.Recipe
                 foreach (var detail in recipeToMake.Details)
                 {
                     detail.RawMaterial.Quantity -= detail.Quantity * quantityToMake;
+                    await dbContext.SaveChangesAsync();
                 }
-                await dbContext.SaveChangesAsync();
 
                 return new List<string> 
                 { 
@@ -111,6 +111,7 @@ namespace CletusReyes.Repositories.Recipe
             recipeUpdated.Description = tblRecipeHeader.Description;
             recipeUpdated.UserIdUpdated = tblRecipeHeader.UserIdUpdated;
             recipeUpdated.Updated_at = DateTime.Now.ToString("G");
+            recipeUpdated.Details = null;
             await dbContext.SaveChangesAsync();
 
             tblRecipeDetails.ForEach(detail => detail.RecipeHeaderId = recipeUpdated.Id);
