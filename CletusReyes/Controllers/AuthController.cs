@@ -37,12 +37,13 @@ namespace CletusReyes.Controllers
             {
                 var identityUser = new TblUser
                 {
-                    Email = registerRequestDto.Email
+                    Email = registerRequestDto.Email,
+                    UserName = registerRequestDto.Email[..2]
                 };
 
                 var emailExists = await userManager.FindByEmailAsync(identityUser.Email);
 
-                if (emailExists != null)
+                if (emailExists == null)
                 {
                     var identityResult = await userManager.CreateAsync(identityUser, registerRequestDto.Password);
 

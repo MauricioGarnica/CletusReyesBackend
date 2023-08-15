@@ -242,6 +242,67 @@ namespace CletusReyes.Data
                 },
             };
             modelBuilder.Entity<TblRoles>().HasData(roles);
+
+            //Seed data for providers
+            var providers = new List<TblProvider>
+            {
+                new TblProvider
+                {
+                    Id = Guid.Parse("32a9172e-d7fd-4b44-83cc-48bfed5a80a1"),
+                    Address = "Blvd. Torres Landa #3301 Col.Arroyo Hondo",
+                    BusinessName = "Medina Torres",
+                    ContactEmail = "info@medinatorres.com",
+                    ContactName = "Juan Medina",
+                    ContactPhone = "4777181780",
+                    Created_at = DateTime.Now.ToString("G"),
+                    Status = true,
+                },
+                new TblProvider
+                {
+                    Id = Guid.Parse("e1174f5b-5e16-4bc1-8c31-7e8e89e6022e"),
+                    Address = "Monte Carmelo #112 Col.Arroyo Hondo",
+                    BusinessName = "Curtiembres de México",
+                    ContactEmail = "info@curtiembresdemexico.com",
+                    ContactName = "Sebastian Perez",
+                    ContactPhone = "4777780079",
+                    Created_at = DateTime.Now.ToString("G"),
+                    Status = true,
+                },
+                new TblProvider
+                {
+                    Id = Guid.Parse("cc1fa6e7-bee4-4e34-b427-f26ebb6314c8"),
+                    Address = "Av.Transportistas #301 Col.Unidad Obrera",
+                    BusinessName = "Lefarc",
+                    ContactEmail = "mercadotecnia@lefarc.com",
+                    ContactName = "Alonso Hernandez",
+                    ContactPhone = "4774702828",
+                    Created_at = DateTime.Now.ToString("G"),
+                    Status = true,
+                },
+                new TblProvider
+                {
+                    Id = Guid.Parse("66398fad-6c5a-4608-9a3e-dc9b58be6cf5"),
+                    Address = "Blvd.Timoteo Lozano #101-B Col.San Miguel",
+                    BusinessName = "Simon Quimica",
+                    ContactEmail = "ventassq@simonquimica.mx",
+                    ContactName = "Erika Serrato",
+                    ContactPhone = "4777705252",
+                    Created_at = DateTime.Now.ToString("G"),
+                    Status = true,
+                },
+                new TblProvider
+                {
+                    Id = Guid.Parse("a023c291-86f2-4945-aaa9-dbff1c2b6f25"),
+                    Address = "Blvd.Timoteo Lozano #101-B Col.San Miguel",
+                    BusinessName = "Simon Quimica",
+                    ContactEmail = "ventassq@simonquimica.mx",
+                    ContactName = "Erika Serrato",
+                    ContactPhone = "4777705252",
+                    Created_at = DateTime.Now.ToString("G"),
+                    Status = true,
+                }
+            };
+            modelBuilder.Entity<TblProvider>().HasData(providers);
         }
     }
 }
