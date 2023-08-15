@@ -102,10 +102,9 @@ namespace CletusReyes.Controllers
         }
 
         [HttpPut]
-        [ValidateModel]
         [Route("{id:Guid}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] UpdateProductRequestDomainModel updateProductRequestDomainModel, [FromForm] UpdateProductImageRequestDomainModel updateProductImageRequestDomainModel)
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] UpdateProductRequestDomainModel updateProductRequestDomainModel)
         {
             try
             {
@@ -117,10 +116,21 @@ namespace CletusReyes.Controllers
                     MinValue = updateProductRequestDomainModel.MinValue,
                     MaxValue = updateProductRequestDomainModel.MaxValue,
                     Quantity = updateProductRequestDomainModel.Quantity,
-                    File = updateProductImageRequestDomainModel.File,
-                    FileName = updateProductImageRequestDomainModel.FileName,
-                    FileDescription = updateProductImageRequestDomainModel.FileDescription
+                    CategoryId = Guid.Parse(updateProductRequestDomainModel.CategoryId),
+                    SizeId = Guid.Parse(updateProductRequestDomainModel.SizeId),
                 };
+
+                if(productDomainModel.File == null)
+                {
+                    productDomainModel = await productRepository.Update(id, productDomainModel);
+
+                    if (productDomainModel == null)
+                    {
+                        return NotFound();
+                    }
+
+                    return Ok(mapper.Map<ProductResponseDto>(productDomainModel));
+                }
 
                 ValidateFileUpload(productDomainModel);
 

@@ -62,7 +62,10 @@ namespace CletusReyes.Repositories.Product
             productUpdated.Quantity = tblProduct.Quantity;
             productUpdated.UserIdUpdated = tblProduct.UserIdUpdated;
             productUpdated.Updated_at = DateTime.Now.ToString("G");
-            productUpdated = await UploadImage(productUpdated);
+            if(productUpdated.File != null)
+            {
+                productUpdated = await UploadImage(productUpdated);
+            }
             await dbContext.SaveChangesAsync();
 
             return productUpdated;

@@ -8,6 +8,8 @@
         public int MinValue { get; set; }
         public int MaxValue { get; set; }
         public int Quantity { get; set; }
+        public string CategoryId { get; set; }
+        public string SizeId { get; set; }
         public string? UserIdUpdated { get; set; }
     }
 }
