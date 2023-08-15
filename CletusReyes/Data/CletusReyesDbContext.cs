@@ -82,6 +82,34 @@ namespace CletusReyes.Data
                     Size = "16oz",
                     Status = true,
                     Created_at = DateTime.Now.ToString("G")
+                },
+                new TblSize
+                {
+                    Id = Guid.Parse("98838e4b-fae5-4ae8-9cc3-05b794dc322e"),
+                    Size = "CHICO",
+                    Status = true,
+                    Created_at = DateTime.Now.ToString("G")
+                },
+                new TblSize
+                {
+                    Id = Guid.Parse("83a96764-b2e4-4794-8f0a-69de7fe48143"),
+                    Size = "MEDIANO",
+                    Status = true,
+                    Created_at = DateTime.Now.ToString("G")
+                },
+                new TblSize
+                {
+                    Id = Guid.Parse("515d8c75-f2f2-4473-8f82-405dedb5d613"),
+                    Size = "GRANDE",
+                    Status = true,
+                    Created_at = DateTime.Now.ToString("G")
+                },
+                new TblSize
+                {
+                    Id = Guid.Parse("e38bff0e-b36d-4dd6-99b6-c23ee4e4a05a"),
+                    Size = "NO APLICA",
+                    Status = true,
+                    Created_at = DateTime.Now.ToString("G")
                 }
             };
             modelBuilder.Entity<TblSize>().HasData(sizes);
@@ -242,6 +270,496 @@ namespace CletusReyes.Data
                 },
             };
             modelBuilder.Entity<TblRoles>().HasData(roles);
+
+            //Seed data for providers
+            var providers = new List<TblProvider>
+            {
+                new TblProvider
+                {
+                    Id = Guid.Parse("32a9172e-d7fd-4b44-83cc-48bfed5a80a1"),
+                    Address = "Blvd. Torres Landa #3301 Col.Arroyo Hondo",
+                    BusinessName = "Medina Torres",
+                    ContactEmail = "info@medinatorres.com",
+                    ContactName = "Juan Medina",
+                    ContactPhone = "4777181780",
+                    Created_at = DateTime.Now.ToString("G"),
+                    Status = true,
+                },
+                new TblProvider
+                {
+                    Id = Guid.Parse("e1174f5b-5e16-4bc1-8c31-7e8e89e6022e"),
+                    Address = "Monte Carmelo #112 Col.Arroyo Hondo",
+                    BusinessName = "Curtiembres de México",
+                    ContactEmail = "info@curtiembresdemexico.com",
+                    ContactName = "Sebastian Perez",
+                    ContactPhone = "4777780079",
+                    Created_at = DateTime.Now.ToString("G"),
+                    Status = true,
+                },
+                new TblProvider
+                {
+                    Id = Guid.Parse("cc1fa6e7-bee4-4e34-b427-f26ebb6314c8"),
+                    Address = "Av.Transportistas #301 Col.Unidad Obrera",
+                    BusinessName = "Lefarc",
+                    ContactEmail = "mercadotecnia@lefarc.com",
+                    ContactName = "Alonso Hernandez",
+                    ContactPhone = "4774702828",
+                    Created_at = DateTime.Now.ToString("G"),
+                    Status = true,
+                },
+                new TblProvider
+                {
+                    Id = Guid.Parse("66398fad-6c5a-4608-9a3e-dc9b58be6cf5"),
+                    Address = "Blvd.Timoteo Lozano #101-B Col.San Miguel",
+                    BusinessName = "Simon Quimica",
+                    ContactEmail = "ventassq@simonquimica.mx",
+                    ContactName = "Erika Serrato",
+                    ContactPhone = "4777705252",
+                    Created_at = DateTime.Now.ToString("G"),
+                    Status = true,
+                },
+                new TblProvider
+                {
+                    Id = Guid.Parse("753ff726-1613-4e81-b936-39ecd53259d1"),
+                    Address = "Boulevard Prolongación Tepeyac #1304 local 2 Col. Prados Verdes",
+                    BusinessName = "Velcro Brand",
+                    ContactEmail = "btlalolini@prodigy.net.mx",
+                    ContactName = "Bruno Tlalolini",
+                    ContactPhone = "4777747540",
+                    Created_at = DateTime.Now.ToString("G"),
+                    Status = true,
+                },
+                new TblProvider
+                {
+                    Id = Guid.Parse("4e097db4-5534-4d4b-b16c-4ce2550d9d32"),
+                    Address = "Blvd.Antonio Madrazo #1216 Col.El Cortijo",
+                    BusinessName = "Espumax",
+                    ContactEmail = "espumax@gmail.com",
+                    ContactName = "Ivan Sanchez",
+                    ContactPhone = "4772335162",
+                    Created_at = DateTime.Now.ToString("G"),
+                    Status = true,
+                },
+                new TblProvider
+                {
+                    Id = Guid.Parse("2802ecd1-0b0f-46d0-8cd8-bb94be233e9e"),
+                    Address = "Blvd. Hermenegildo Bustos #2217 col.Unidad Obrera Infonavit",
+                    BusinessName = "Hilos Modiz",
+                    ContactEmail = "modiz@gmail.com",
+                    ContactName = "Araceli Gutierrez",
+                    ContactPhone = "4777180275",
+                    Created_at = DateTime.Now.ToString("G"),
+                    Status = true,
+                }
+            };
+            modelBuilder.Entity<TblProvider>().HasData(providers);
+
+            //Seed data for raw materials
+            var rawMaterials = new List<TblRawMaterial>
+            {
+                new TblRawMaterial
+                {
+                    Id = Guid.Parse("758a1a4e-c7f8-4058-a7c4-2602c0298b32"),
+                    Created_at= DateTime.Now.ToString("G"),
+                    MaxValue = 30000,
+                    MinValue = 1500,
+                    Name = "Piel de vaca color rojo",
+                    Price = 350,
+                    ProviderId = Guid.Parse("32a9172e-d7fd-4b44-83cc-48bfed5a80a1"),
+                    Quantity = 15000,
+                    Status = true,
+                    UnitMeasureId = Guid.Parse("92743A31-78D1-4E8A-EB94-08DB979FE8CB"),
+                    Description = ""
+                },
+                new TblRawMaterial
+                {
+                    Id = Guid.Parse("f11ccf0f-f8e9-4fda-8677-6992dd53a64b"),
+                    Created_at= DateTime.Now.ToString("G"),
+                    MaxValue = 20000,
+                    MinValue = 1000,
+                    Name = "Piel de vaca color negro",
+                    Price = 325,
+                    ProviderId = Guid.Parse("32a9172e-d7fd-4b44-83cc-48bfed5a80a1"),
+                    Quantity = 7000,
+                    Status = true,
+                    UnitMeasureId = Guid.Parse("92743A31-78D1-4E8A-EB94-08DB979FE8CB"),
+                    Description = ""
+                },
+                new TblRawMaterial
+                {
+                    Id = Guid.Parse("72294d1e-133a-4c69-9eb9-df383ad49819"),
+                    Created_at= DateTime.Now.ToString("G"),
+                    MaxValue = 25000,
+                    MinValue = 2000,
+                    Name = "Piel de vaca color dorado",
+                    Price = 450,
+                    ProviderId = Guid.Parse("32a9172e-d7fd-4b44-83cc-48bfed5a80a1"),
+                    Quantity = 12000,
+                    Status = true,
+                    UnitMeasureId = Guid.Parse("92743A31-78D1-4E8A-EB94-08DB979FE8CB"),
+                    Description = ""
+                },
+                new TblRawMaterial
+                {
+                    Id = Guid.Parse("5eb8fffa-c508-47a6-a662-0452993ea114"),
+                    Created_at= DateTime.Now.ToString("G"),
+                    MaxValue = 40000,
+                    MinValue = 2000,
+                    Name = "Piel de vaca color blanco",
+                    Price = 375,
+                    ProviderId = Guid.Parse("32a9172e-d7fd-4b44-83cc-48bfed5a80a1"),
+                    Quantity = 20000,
+                    Status = true,
+                    UnitMeasureId = Guid.Parse("92743A31-78D1-4E8A-EB94-08DB979FE8CB"),
+                    Description = ""
+                },
+                new TblRawMaterial
+                {
+                    Id = Guid.Parse("dff9d777-3531-4d9c-abcf-78f4fbff80fa"),
+                    Created_at= DateTime.Now.ToString("G"),
+                    MaxValue = 100000,
+                    MinValue = 2000,
+                    Name = "Piel sintetica color negro",
+                    Price = 150,
+                    ProviderId = Guid.Parse("66398fad-6c5a-4608-9a3e-dc9b58be6cf5"),
+                    Quantity = 3500,
+                    Status = true,
+                    UnitMeasureId = Guid.Parse("92743A31-78D1-4E8A-EB94-08DB979FE8CB"),
+                    Description = ""
+                },
+                new TblRawMaterial
+                {
+                    Id = Guid.Parse("d9fd1206-ccf1-44e6-979d-0d2dac1bccbd"),
+                    Created_at= DateTime.Now.ToString("G"),
+                    MaxValue = 10000,
+                    MinValue = 200,
+                    Name = "Piel sintetica color rojo",
+                    Price = 125,
+                    ProviderId = Guid.Parse("66398fad-6c5a-4608-9a3e-dc9b58be6cf5"),
+                    Quantity = 3500,
+                    Status = true,
+                    UnitMeasureId = Guid.Parse("92743A31-78D1-4E8A-EB94-08DB979FE8CB"),
+                    Description = ""
+                },
+                new TblRawMaterial
+                {
+                    Id = Guid.Parse("3bb6c3af-9fcc-462e-9f31-b7a20fd413d4"),
+                    Created_at= DateTime.Now.ToString("G"),
+                    MaxValue = 9000,
+                    MinValue = 200,
+                    Name = "Piel sintetica color blanco",
+                    Price = 100,
+                    ProviderId = Guid.Parse("66398fad-6c5a-4608-9a3e-dc9b58be6cf5"),
+                    Quantity = 3500,
+                    Status = true,
+                    UnitMeasureId = Guid.Parse("92743A31-78D1-4E8A-EB94-08DB979FE8CB"),
+                    Description = ""
+                },
+                new TblRawMaterial
+                {
+                    Id = Guid.Parse("d4736685-9730-40fd-a18e-5d7bdff280e2"),
+                    Created_at= DateTime.Now.ToString("G"),
+                    MaxValue = 11000,
+                    MinValue = 500,
+                    Name = "Piel sintetica color dorado",
+                    Price = 200,
+                    ProviderId = Guid.Parse("66398fad-6c5a-4608-9a3e-dc9b58be6cf5"),
+                    Quantity = 3500,
+                    Status = true,
+                    UnitMeasureId = Guid.Parse("92743A31-78D1-4E8A-EB94-08DB979FE8CB"),
+                    Description = ""
+                },
+                new TblRawMaterial
+                {
+                    Id = Guid.Parse("5ce0a50e-d43f-479c-a51d-5792c2405555"),
+                    Created_at= DateTime.Now.ToString("G"),
+                    MaxValue = 100,
+                    MinValue = 5,
+                    Name = "Goma espuma de 100*100cm",
+                    Price = 350,
+                    ProviderId = Guid.Parse("4e097db4-5534-4d4b-b16c-4ce2550d9d32"),
+                    Quantity = 56,
+                    Status = true,
+                    UnitMeasureId = Guid.Parse("7220FD18-43FE-4880-EB95-08DB979FE8CB"),
+                    Description = ""
+                },
+                new TblRawMaterial
+                {
+                    Id = Guid.Parse("250b5182-f96d-422f-9efd-0afd55221143"),
+                    Created_at= DateTime.Now.ToString("G"),
+                    MaxValue = 10000,
+                    MinValue = 200,
+                    Name = "Hilo negro",
+                    Price = 100,
+                    ProviderId = Guid.Parse("2802ecd1-0b0f-46d0-8cd8-bb94be233e9e"),
+                    Quantity = 5000,
+                    Status = true,
+                    UnitMeasureId = Guid.Parse("92743A31-78D1-4E8A-EB94-08DB979FE8CB"),
+                    Description = ""
+                },
+                new TblRawMaterial
+                {
+                    Id = Guid.Parse("0056c142-13f2-465d-824d-4299eaa3d45d"),
+                    Created_at= DateTime.Now.ToString("G"),
+                    MaxValue = 10000,
+                    MinValue = 200,
+                    Name = "Hilo blanco",
+                    Price = 100,
+                    ProviderId = Guid.Parse("2802ecd1-0b0f-46d0-8cd8-bb94be233e9e"),
+                    Quantity = 5000,
+                    Status = true,
+                    UnitMeasureId = Guid.Parse("92743A31-78D1-4E8A-EB94-08DB979FE8CB"),
+                    Description = ""
+                },
+                new TblRawMaterial
+                {
+                    Id = Guid.Parse("db9e6ef4-d516-448d-9c40-1ba7b7b83af2"),
+                    Created_at= DateTime.Now.ToString("G"),
+                    MaxValue = 10000,
+                    MinValue = 200,
+                    Name = "Hilo rojo",
+                    Price = 100,
+                    ProviderId = Guid.Parse("2802ecd1-0b0f-46d0-8cd8-bb94be233e9e"),
+                    Quantity = 5000,
+                    Status = true,
+                    UnitMeasureId = Guid.Parse("92743A31-78D1-4E8A-EB94-08DB979FE8CB"),
+                    Description = ""
+                },
+                new TblRawMaterial
+                {
+                    Id = Guid.Parse("bc94f5cf-8b87-4860-8fb4-a5794f06833d"),
+                    Created_at= DateTime.Now.ToString("G"),
+                    MaxValue = 10000,
+                    MinValue = 200,
+                    Name = "Hilo dorado",
+                    Price = 100,
+                    ProviderId = Guid.Parse("2802ecd1-0b0f-46d0-8cd8-bb94be233e9e"),
+                    Quantity = 5000,
+                    Status = true,
+                    UnitMeasureId = Guid.Parse("92743A31-78D1-4E8A-EB94-08DB979FE8CB"),
+                    Description = ""
+                },
+                new TblRawMaterial
+                {
+                    Id = Guid.Parse("bb156abe-638f-4243-b338-5f7ed26d2f47"),
+                    Created_at= DateTime.Now.ToString("G"),
+                    MaxValue = 20000,
+                    MinValue = 500,
+                    Name = "Velcro negro",
+                    Price = 250,
+                    ProviderId = Guid.Parse("753ff726-1613-4e81-b936-39ecd53259d1"),
+                    Quantity = 5000,
+                    Status = true,
+                    UnitMeasureId = Guid.Parse("92743A31-78D1-4E8A-EB94-08DB979FE8CB"),
+                    Description = "Rollos de 100cm con 10cm de espesor"
+                },
+                new TblRawMaterial
+                {
+                    Id = Guid.Parse("279b5ed0-e9e0-4e2c-88fd-176ad5b8847a"),
+                    Created_at= DateTime.Now.ToString("G"),
+                    MaxValue = 20000,
+                    MinValue = 500,
+                    Name = "Velcro rojo",
+                    Price = 235,
+                    ProviderId = Guid.Parse("753ff726-1613-4e81-b936-39ecd53259d1"),
+                    Quantity = 5000,
+                    Status = true,
+                    UnitMeasureId = Guid.Parse("92743A31-78D1-4E8A-EB94-08DB979FE8CB"),
+                    Description = "Rollos de 100cm con 10cm de espesor"
+                },
+                new TblRawMaterial
+                {
+                    Id = Guid.Parse("83e4c615-648c-4405-aed6-bbd084ea105f"),
+                    Created_at= DateTime.Now.ToString("G"),
+                    MaxValue = 20000,
+                    MinValue = 500,
+                    Name = "Velcro blanco",
+                    Price = 235,
+                    ProviderId = Guid.Parse("753ff726-1613-4e81-b936-39ecd53259d1"),
+                    Quantity = 5000,
+                    Status = true,
+                    UnitMeasureId = Guid.Parse("92743A31-78D1-4E8A-EB94-08DB979FE8CB"),
+                    Description = "Rollos de 100cm con 10cm de espesor"
+                },
+            };
+            modelBuilder.Entity<TblRawMaterial>().HasData(rawMaterials);
+
+            //Seed data for products
+            var products = new List<TblProduct>
+            {
+                new TblProduct
+                {
+                    Id = Guid.Parse("05ca4c98-738a-47d0-ad57-0837f79042d6"),
+                    CategoryId = Guid.Parse("ffbf969b-36bb-47b3-a3ee-840523779c01"),
+                    Created_at = DateTime.Now.ToString("G"),
+                    Description = "",
+                    FileDescription = "",
+                    FileExtension = ".jpg",
+                    FileName = "Guantesrojos16oz",
+                    FilePath = "https://localhost:7088/Images/Guantesrojos16oz.jpg",
+                    FileSizeInBytes = 0,
+                    MaxValue = 15,
+                    MinValue = 3,
+                    Name = "Guantes rojos 16oz",
+                    Price = 1250,
+                    Quantity = 10,
+                    SizeId = Guid.Parse("24d0f481-814c-41b3-b0d8-4c875d89a95d"),
+                    Status = true
+                },
+                new TblProduct
+                {
+                    Id = Guid.Parse("6cbd63b4-f0c6-4cc8-99ca-6263e150e474"),
+                    CategoryId = Guid.Parse("ffbf969b-36bb-47b3-a3ee-840523779c01"),
+                    Created_at = DateTime.Now.ToString("G"),
+                    Description = "",
+                    FileDescription = "",
+                    FileExtension = ".jpg",
+                    FileName = "Guantesnegros16oz",
+                    FilePath = "https://localhost:7088/Images/Guantesnegros16oz.jpg",
+                    FileSizeInBytes = 0,
+                    MaxValue = 20,
+                    MinValue = 5,
+                    Name = "Guantes negros 16oz",
+                    Price = 1150,
+                    Quantity = 10,
+                    SizeId = Guid.Parse("24d0f481-814c-41b3-b0d8-4c875d89a95d"),
+                    Status = true
+                },
+                new TblProduct
+                {
+                    Id = Guid.Parse("fc000f09-4a69-4937-b7b0-80215b37de73"),
+                    CategoryId = Guid.Parse("ffbf969b-36bb-47b3-a3ee-840523779c01"),
+                    Created_at = DateTime.Now.ToString("G"),
+                    Description = "",
+                    FileDescription = "",
+                    FileExtension = ".jpeg",
+                    FileName = "Guantesblancos16oz",
+                    FilePath = "https://localhost:7088/Images/Guantesblancos16oz.jpeg",
+                    FileSizeInBytes = 0,
+                    MaxValue = 20,
+                    MinValue = 5,
+                    Name = "Guantes blancos 16oz",
+                    Price = 1150,
+                    Quantity = 10,
+                    SizeId = Guid.Parse("24d0f481-814c-41b3-b0d8-4c875d89a95d"),
+                    Status = true
+                },
+                new TblProduct
+                {
+                    Id = Guid.Parse("45715fa2-fdb2-4ced-8c21-76d71f374037"),
+                    CategoryId = Guid.Parse("ffbf969b-36bb-47b3-a3ee-840523779c01"),
+                    Created_at = DateTime.Now.ToString("G"),
+                    Description = "",
+                    FileDescription = "",
+                    FileExtension = ".png",
+                    FileName = "Guantesrojos14oz",
+                    FilePath = "https://localhost:7088/Images/Guantesrojos14oz.png",
+                    FileSizeInBytes = 0,
+                    MaxValue = 12,
+                    MinValue = 2,
+                    Name = "Guantes rojos 14oz",
+                    Price = 1300,
+                    Quantity = 8,
+                    SizeId = Guid.Parse("1AFCAD04-BAE2-4EDD-A936-7EEA79380149"),
+                    Status = true
+                },
+                new TblProduct
+                {
+                    Id = Guid.Parse("b028a88c-80ea-4b62-8a45-4059d5dedf01"),
+                    CategoryId = Guid.Parse("ffbf969b-36bb-47b3-a3ee-840523779c01"),
+                    Created_at = DateTime.Now.ToString("G"),
+                    Description = "",
+                    FileDescription = "",
+                    FileExtension = ".jpg",
+                    FileName = "Guantesnegros14oz",
+                    FilePath = "https://localhost:7088/Images/Guantesnegros14oz.jpg",
+                    FileSizeInBytes = 0,
+                    MaxValue = 11,
+                    MinValue = 3,
+                    Name = "Guantes negros 14oz",
+                    Price = 1250,
+                    Quantity = 8,
+                    SizeId = Guid.Parse("1AFCAD04-BAE2-4EDD-A936-7EEA79380149"),
+                    Status = true
+                },
+                new TblProduct
+                {
+                    Id = Guid.Parse("6aa0de18-fa8b-4070-a4dc-79cec6e1e700"),
+                    CategoryId = Guid.Parse("ffbf969b-36bb-47b3-a3ee-840523779c01"),
+                    Created_at = DateTime.Now.ToString("G"),
+                    Description = "",
+                    FileDescription = "",
+                    FileExtension = ".jpg",
+                    FileName = "Guantesblancos14oz",
+                    FilePath = "https://localhost:7088/Images/Guantesblancos14oz.jpg",
+                    FileSizeInBytes = 0,
+                    MaxValue = 11,
+                    MinValue = 3,
+                    Name = "Guantes blancos 14oz",
+                    Price = 1250,
+                    Quantity = 8,
+                    SizeId = Guid.Parse("1AFCAD04-BAE2-4EDD-A936-7EEA79380149"),
+                    Status = true
+                },
+                new TblProduct
+                {
+                    Id = Guid.Parse("9591d94e-2a82-49c5-ad1f-2dd1b7fa6837"),
+                    CategoryId = Guid.Parse("ffbf969b-36bb-47b3-a3ee-840523779c01"),
+                    Created_at = DateTime.Now.ToString("G"),
+                    Description = "",
+                    FileDescription = "",
+                    FileExtension = ".jpeg",
+                    FileName = "Guantesrojos12oz",
+                    FilePath = "https://localhost:7088/Images/Guantesrojos12oz.jpeg",
+                    FileSizeInBytes = 0,
+                    MaxValue = 10,
+                    MinValue = 2,
+                    Name = "Guantes rojos 12oz",
+                    Price = 1400,
+                    Quantity = 6,
+                    SizeId = Guid.Parse("4847982E-F6E4-4D30-ACFA-D4D3EB774025"),
+                    Status = true
+                },
+                new TblProduct
+                {
+                    Id = Guid.Parse("d13a1ae6-4dc0-4bb3-bf1d-184ac3d18885"),
+                    CategoryId = Guid.Parse("ffbf969b-36bb-47b3-a3ee-840523779c01"),
+                    Created_at = DateTime.Now.ToString("G"),
+                    Description = "",
+                    FileDescription = "",
+                    FileExtension = ".jpeg",
+                    FileName = "Guantesnegros12oz",
+                    FilePath = "https://localhost:7088/Images/Guantesnegros12oz.jpeg",
+                    FileSizeInBytes = 0,
+                    MaxValue = 13,
+                    MinValue = 4,
+                    Name = "Guantes negros 12oz",
+                    Price = 1000,
+                    Quantity = 6,
+                    SizeId = Guid.Parse("4847982E-F6E4-4D30-ACFA-D4D3EB774025"),
+                    Status = true
+                },
+                new TblProduct
+                {
+                    Id = Guid.Parse("9d1801c2-52f1-425d-bf45-67eedcfc4179"),
+                    CategoryId = Guid.Parse("ffbf969b-36bb-47b3-a3ee-840523779c01"),
+                    Created_at = DateTime.Now.ToString("G"),
+                    Description = "",
+                    FileDescription = "",
+                    FileExtension = ".jpg",
+                    FileName = "Guantesblancos12oz",
+                    FilePath = "https://localhost:7088/Images/Guantesblancos12oz.jpeg",
+                    FileSizeInBytes = 0,
+                    MaxValue = 10,
+                    MinValue = 2,
+                    Name = "Guantes blancos 12oz",
+                    Price = 1400,
+                    Quantity = 6,
+                    SizeId = Guid.Parse("4847982E-F6E4-4D30-ACFA-D4D3EB774025"),
+                    Status = true
+                },
+            };
+            modelBuilder.Entity<TblProduct>().HasData(products);
         }
     }
 }

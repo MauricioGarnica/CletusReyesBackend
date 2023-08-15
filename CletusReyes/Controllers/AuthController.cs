@@ -37,39 +37,48 @@ namespace CletusReyes.Controllers
             {
                 var identityUser = new TblUser
                 {
-                    UserName = registerRequestDto.Username,
-                    Email = registerRequestDto.Email
+                    Email = registerRequestDto.Email,
+                    UserName = registerRequestDto.Email[..2]
                 };
-                var identityResult = await userManager.CreateAsync(identityUser, registerRequestDto.Password);
 
-                if (identityResult.Succeeded)
+                var emailExists = await userManager.FindByEmailAsync(identityUser.Email);
+
+                if (emailExists == null)
                 {
-                    if (registerRequestDto.Roles != null && registerRequestDto.Roles.Any())
+                    var identityResult = await userManager.CreateAsync(identityUser, registerRequestDto.Password);
+
+                    if (identityResult.Succeeded)
                     {
-                        var result = await authRepository.AddUserToRoles(identityUser.Id, registerRequestDto.Roles);
-
-                        if (result)
+                        if (registerRequestDto.Roles != null && registerRequestDto.Roles.Any())
                         {
-                            var jwt = tokenRepository.CreateJwt(identityUser, registerRequestDto.Roles);
+                            var result = await authRepository.AddUserToRoles(identityUser.Id, registerRequestDto.Roles);
 
-                            var response = new LoginResponseDto
+                            if (result)
                             {
-                                UserId = identityUser.Id,
-                                UserName = identityUser.UserName,
-                                Rol = registerRequestDto.Roles[0],
-                                JwtToken = jwt
-                            };
-                            return Ok(response);
+                                var jwt = tokenRepository.CreateJwt(identityUser, registerRequestDto.Roles);
+
+                                var response = new LoginResponseDto
+                                {
+                                    UserId = identityUser.Id,
+                                    Rol = registerRequestDto.Roles[0],
+                                    JwtToken = jwt
+                                };
+                                return Ok(response);
+                            }
                         }
                     }
+                    else if (identityResult.Errors != null)
+                    {
+                        var errors = string.Join(',', identityResult.Errors);
+                        return BadRequest(errors);
+                    }
                 }
-                else if (identityResult.Errors != null)
+                else
                 {
-                    var errors = string.Join(',', identityResult.Errors);
-                    return BadRequest(errors);
+                    return BadRequest("El correo ya se encuentra registrado");
                 }
 
-                return BadRequest("Something went wrong :c");
+                return BadRequest("Algo se hizo mal, intentelo de nuevo");
             }
             catch (Exception ex)
             {
@@ -139,10 +148,10 @@ namespace CletusReyes.Controllers
                         }
                     }
 
-                    return BadRequest("Password are incorrect :c");
+                    return BadRequest("Contraseña incorrecta :c");
                 }
 
-                return BadRequest("User not founded :c");
+                return BadRequest("Correo incorrecto :c");
             }
             catch (Exception ex)
             {
