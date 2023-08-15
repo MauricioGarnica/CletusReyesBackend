@@ -39,6 +39,9 @@ namespace CletusReyes.Repositories.Auth
 
             if (resultPhoneNumber.Succeeded)
             {
+                userUpdated.UserName = updateUserRequestDomainModel.Name;
+                await userManager.UpdateNormalizedUserNameAsync(userUpdated);
+
                 var personUpdated = await dbContext.Persons.FirstOrDefaultAsync(person => person.User.Id == id);
 
                 if (personUpdated == null)

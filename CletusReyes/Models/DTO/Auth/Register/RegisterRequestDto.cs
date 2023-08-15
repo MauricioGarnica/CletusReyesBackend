@@ -5,10 +5,6 @@ namespace CletusReyes.Models.DTO.Auth.Register
     public class RegisterRequestDto
     {
         [Required]
-        [DataType(DataType.Text)]
-        public string Username { get; set; }
-
-        [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
