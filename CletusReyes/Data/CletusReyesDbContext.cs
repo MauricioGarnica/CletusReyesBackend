@@ -627,6 +627,25 @@ namespace CletusReyes.Data
                 },
                 new TblProduct
                 {
+                    Id = Guid.Parse("fc000f09-4a69-4937-b7b0-80215b37de73"),
+                    CategoryId = Guid.Parse("ffbf969b-36bb-47b3-a3ee-840523779c01"),
+                    Created_at = DateTime.Now.ToString("G"),
+                    Description = "",
+                    FileDescription = "",
+                    FileExtension = ".jpeg",
+                    FileName = "Guantesblancos16oz",
+                    FilePath = "https://localhost:7088/Images/Guantesblancos16oz.jpeg",
+                    FileSizeInBytes = 0,
+                    MaxValue = 20,
+                    MinValue = 5,
+                    Name = "Guantes blancos 16oz",
+                    Price = 1150,
+                    Quantity = 10,
+                    SizeId = Guid.Parse("24d0f481-814c-41b3-b0d8-4c875d89a95d"),
+                    Status = true
+                },
+                new TblProduct
+                {
                     Id = Guid.Parse("45715fa2-fdb2-4ced-8c21-76d71f374037"),
                     CategoryId = Guid.Parse("ffbf969b-36bb-47b3-a3ee-840523779c01"),
                     Created_at = DateTime.Now.ToString("G"),
@@ -658,6 +677,25 @@ namespace CletusReyes.Data
                     MaxValue = 11,
                     MinValue = 3,
                     Name = "Guantes negros 14oz",
+                    Price = 1250,
+                    Quantity = 8,
+                    SizeId = Guid.Parse("1AFCAD04-BAE2-4EDD-A936-7EEA79380149"),
+                    Status = true
+                },
+                new TblProduct
+                {
+                    Id = Guid.Parse("6aa0de18-fa8b-4070-a4dc-79cec6e1e700"),
+                    CategoryId = Guid.Parse("ffbf969b-36bb-47b3-a3ee-840523779c01"),
+                    Created_at = DateTime.Now.ToString("G"),
+                    Description = "",
+                    FileDescription = "",
+                    FileExtension = ".jpg",
+                    FileName = "Guantesblancos14oz",
+                    FilePath = "https://localhost:7088/Images/Guantesblancos14oz.jpg",
+                    FileSizeInBytes = 0,
+                    MaxValue = 11,
+                    MinValue = 3,
+                    Name = "Guantes blancos 14oz",
                     Price = 1250,
                     Quantity = 8,
                     SizeId = Guid.Parse("1AFCAD04-BAE2-4EDD-A936-7EEA79380149"),
@@ -700,7 +738,26 @@ namespace CletusReyes.Data
                     Quantity = 6,
                     SizeId = Guid.Parse("4847982E-F6E4-4D30-ACFA-D4D3EB774025"),
                     Status = true
-                }
+                },
+                new TblProduct
+                {
+                    Id = Guid.Parse("9d1801c2-52f1-425d-bf45-67eedcfc4179"),
+                    CategoryId = Guid.Parse("ffbf969b-36bb-47b3-a3ee-840523779c01"),
+                    Created_at = DateTime.Now.ToString("G"),
+                    Description = "",
+                    FileDescription = "",
+                    FileExtension = ".jpg",
+                    FileName = "Guantesblancos12oz",
+                    FilePath = "https://localhost:7088/Images/Guantesblancos12oz.jpeg",
+                    FileSizeInBytes = 0,
+                    MaxValue = 10,
+                    MinValue = 2,
+                    Name = "Guantes blancos 12oz",
+                    Price = 1400,
+                    Quantity = 6,
+                    SizeId = Guid.Parse("4847982E-F6E4-4D30-ACFA-D4D3EB774025"),
+                    Status = true
+                },
             };
             modelBuilder.Entity<TblProduct>().HasData(products);
         }
