@@ -6,9 +6,9 @@ namespace CletusReyes.Repositories.Provider
 {
     public class SQLProviderRepository : IProviderRepository
     {
-        private readonly CletusReyesDataDbContext dbContext;
+        private readonly CletusReyesDbContext dbContext;
 
-        public SQLProviderRepository(CletusReyesDataDbContext dbContext)
+        public SQLProviderRepository(CletusReyesDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

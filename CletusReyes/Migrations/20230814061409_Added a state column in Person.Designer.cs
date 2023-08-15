@@ -4,24 +4,128 @@ using CletusReyes.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CletusReyes.Migrations.CletusReyesDataDb
+namespace CletusReyes.Migrations
 {
-    [DbContext(typeof(CletusReyesDataDbContext))]
-    partial class CletusReyesDataDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(CletusReyesDbContext))]
+    [Migration("20230814061409_Added a state column in Person")]
+    partial class AddedastatecolumninPerson
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
-
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Auth.TblRoles", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "31f16eb0-8649-4015-9edd-b179b461a2dd",
+                            ConcurrencyStamp = "31f16eb0-8649-4015-9edd-b179b461a2dd",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "f71926a4-5573-4a11-bb9c-875d856cd446",
+                            ConcurrencyStamp = "f71926a4-5573-4a11-bb9c-875d856cd446",
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
+                        });
+                });
+
+            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Auth.TblUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Auth.TblUserRoles", b =>
+                {
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("RoleId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRoles");
+                });
 
             modelBuilder.Entity("CletusReyes.Models.Domain_Model.Category.TblCategory", b =>
                 {
@@ -59,38 +163,79 @@ namespace CletusReyes.Migrations.CletusReyesDataDb
                         new
                         {
                             Id = new Guid("ffbf969b-36bb-47b3-a3ee-840523779c01"),
-                            Created_at = "8/9/2023 3:02:11 AM",
+                            Created_at = "8/14/2023 12:14:09 AM",
                             Name = "GUANTES",
                             Status = true
                         },
                         new
                         {
                             Id = new Guid("3f98d5d2-f4be-4e0a-9b07-07f212973b0d"),
-                            Created_at = "8/9/2023 3:02:11 AM",
+                            Created_at = "8/14/2023 12:14:09 AM",
                             Name = "PROTECCION",
                             Status = true
                         },
                         new
                         {
                             Id = new Guid("68598c64-99c6-487c-b0f8-c0044c137596"),
-                            Created_at = "8/9/2023 3:02:11 AM",
+                            Created_at = "8/14/2023 12:14:09 AM",
                             Name = "COSTALES DE BOX",
                             Status = true
                         },
                         new
                         {
                             Id = new Guid("f63758e5-61e2-4bf3-925c-0cf137216fe6"),
-                            Created_at = "8/9/2023 3:02:11 AM",
+                            Created_at = "8/14/2023 12:14:09 AM",
                             Name = "COACHING",
                             Status = true
                         },
                         new
                         {
                             Id = new Guid("35e3e543-5807-4805-890e-1d257fbeeee7"),
-                            Created_at = "8/9/2023 3:02:11 AM",
+                            Created_at = "8/14/2023 12:14:09 AM",
                             Name = "ROPA Y CALZADO",
                             Status = true
                         });
+                });
+
+            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Person.TblPerson", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Birthday")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Persons");
                 });
 
             modelBuilder.Entity("CletusReyes.Models.Domain_Model.Product.TblProduct", b =>
@@ -314,28 +459,28 @@ namespace CletusReyes.Migrations.CletusReyesDataDb
                         new
                         {
                             Id = new Guid("6967f493-61ef-41af-b785-a9a8649e8767"),
-                            Created_at = "8/9/2023 3:02:11 AM",
+                            Created_at = "8/14/2023 12:14:09 AM",
                             Name = "SOLICITADA",
                             Status = true
                         },
                         new
                         {
                             Id = new Guid("e2d2d115-764b-4264-a6a9-4a1f4d5f4dd4"),
-                            Created_at = "8/9/2023 3:02:11 AM",
+                            Created_at = "8/14/2023 12:14:09 AM",
                             Name = "EN CAMINO",
                             Status = true
                         },
                         new
                         {
                             Id = new Guid("5e257c72-e959-4d0d-9894-1c8682515a3a"),
-                            Created_at = "8/9/2023 3:02:11 AM",
+                            Created_at = "8/14/2023 12:14:09 AM",
                             Name = "ENTREGADA",
                             Status = true
                         },
                         new
                         {
                             Id = new Guid("196f0047-4231-4160-8d4e-124b8437dfac"),
-                            Created_at = "8/9/2023 3:02:11 AM",
+                            Created_at = "8/14/2023 12:14:09 AM",
                             Name = "CANCELADA",
                             Status = true
                         });
@@ -458,6 +603,147 @@ namespace CletusReyes.Migrations.CletusReyesDataDb
                     b.ToTable("RecipeHeaders");
                 });
 
+            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Sale_Order.TblSaleOrderDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("SaleOrderHeaderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SaleOrderHeaderId");
+
+                    b.ToTable("SaleOrderDetails");
+                });
+
+            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Sale_Order.TblSaleOrderHeader", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Created_at")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("SaleOrderStatusId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<float>("Total")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Updated_at")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserIdUpdated")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SaleOrderStatusId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SaleOrderHeaders");
+                });
+
+            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Sale_Order.TblSaleOrderStatus", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Created_at")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Updated_at")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserIdCreated")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserIdUpdated")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SaleOrderStatus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("34e82473-b511-4b31-a94e-304130ee2ede"),
+                            Created_at = "8/14/2023 12:14:09 AM",
+                            Name = "PEDIDO",
+                            Status = false
+                        },
+                        new
+                        {
+                            Id = new Guid("bf341b19-7e2e-492e-8aef-ebab9c33fe09"),
+                            Created_at = "8/14/2023 12:14:09 AM",
+                            Name = "ELABORANDO",
+                            Status = false
+                        },
+                        new
+                        {
+                            Id = new Guid("aeb24d0e-7e62-4183-ace1-4401939ddce6"),
+                            Created_at = "8/14/2023 12:14:09 AM",
+                            Name = "EMPACANDO",
+                            Status = false
+                        },
+                        new
+                        {
+                            Id = new Guid("25a4b068-bc82-4684-8bc5-5c4087d487e4"),
+                            Created_at = "8/14/2023 12:14:09 AM",
+                            Name = "ENVIANDO",
+                            Status = false
+                        },
+                        new
+                        {
+                            Id = new Guid("d5f1c029-61cf-4273-a3d7-431c110e4f15"),
+                            Created_at = "8/14/2023 12:14:09 AM",
+                            Name = "ENTREGADO",
+                            Status = false
+                        },
+                        new
+                        {
+                            Id = new Guid("cb22b5ba-8792-4675-88bb-e33beb098b7d"),
+                            Created_at = "8/14/2023 12:14:09 AM",
+                            Name = "CANCELADO",
+                            Status = false
+                        });
+                });
+
             modelBuilder.Entity("CletusReyes.Models.Domain_Model.Size.TblSize", b =>
                 {
                     b.Property<Guid>("Id")
@@ -494,21 +780,21 @@ namespace CletusReyes.Migrations.CletusReyesDataDb
                         new
                         {
                             Id = new Guid("4847982e-f6e4-4d30-acfa-d4d3eb774025"),
-                            Created_at = "8/9/2023 3:02:11 AM",
+                            Created_at = "8/14/2023 12:14:09 AM",
                             Size = "12oz",
                             Status = true
                         },
                         new
                         {
                             Id = new Guid("1afcad04-bae2-4edd-a936-7eea79380149"),
-                            Created_at = "8/9/2023 3:02:11 AM",
+                            Created_at = "8/14/2023 12:14:09 AM",
                             Size = "14oz",
                             Status = true
                         },
                         new
                         {
                             Id = new Guid("24d0f481-814c-41b3-b0d8-4c875d89a95d"),
-                            Created_at = "8/9/2023 3:02:11 AM",
+                            Created_at = "8/14/2023 12:14:09 AM",
                             Size = "16oz",
                             Status = true
                         });
@@ -521,6 +807,9 @@ namespace CletusReyes.Migrations.CletusReyesDataDb
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Created_at")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -547,17 +836,47 @@ namespace CletusReyes.Migrations.CletusReyesDataDb
                         new
                         {
                             Id = new Guid("92743a31-78d1-4e8a-eb94-08db979fe8cb"),
-                            Created_at = "8/9/2023 3:02:11 AM",
+                            Created_at = "8/14/2023 12:14:09 AM",
                             Name = "CM",
                             Status = true
                         },
                         new
                         {
                             Id = new Guid("7220fd18-43fe-4880-eb95-08db979fe8cb"),
-                            Created_at = "8/9/2023 3:02:11 AM",
+                            Created_at = "8/14/2023 12:14:09 AM",
                             Name = "PZ",
                             Status = true
                         });
+                });
+
+            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Auth.TblUserRoles", b =>
+                {
+                    b.HasOne("CletusReyes.Models.Domain_Model.Auth.TblRoles", "Roles")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CletusReyes.Models.Domain_Model.Auth.TblUser", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Roles");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Person.TblPerson", b =>
+                {
+                    b.HasOne("CletusReyes.Models.Domain_Model.Auth.TblUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CletusReyes.Models.Domain_Model.Product.TblProduct", b =>
@@ -590,7 +909,7 @@ namespace CletusReyes.Migrations.CletusReyesDataDb
                     b.HasOne("CletusReyes.Models.Domain_Model.Raw_Material.TblRawMaterial", "RawMaterial")
                         .WithMany()
                         .HasForeignKey("RawMaterialId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("PurchaseOrderHeader");
@@ -666,12 +985,65 @@ namespace CletusReyes.Migrations.CletusReyesDataDb
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Sale_Order.TblSaleOrderDetail", b =>
+                {
+                    b.HasOne("CletusReyes.Models.Domain_Model.Product.TblProduct", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CletusReyes.Models.Domain_Model.Sale_Order.TblSaleOrderHeader", "SaleOrderHeader")
+                        .WithMany("Details")
+                        .HasForeignKey("SaleOrderHeaderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("SaleOrderHeader");
+                });
+
+            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Sale_Order.TblSaleOrderHeader", b =>
+                {
+                    b.HasOne("CletusReyes.Models.Domain_Model.Sale_Order.TblSaleOrderStatus", "SaleOrderStatus")
+                        .WithMany()
+                        .HasForeignKey("SaleOrderStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CletusReyes.Models.Domain_Model.Auth.TblUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SaleOrderStatus");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Auth.TblRoles", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Auth.TblUser", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
             modelBuilder.Entity("CletusReyes.Models.Domain_Model.Purchase_Order.TblPurchaseOrderHeader", b =>
                 {
                     b.Navigation("Details");
                 });
 
             modelBuilder.Entity("CletusReyes.Models.Domain_Model.Recipe.TblRecipeHeader", b =>
+                {
+                    b.Navigation("Details");
+                });
+
+            modelBuilder.Entity("CletusReyes.Models.Domain_Model.Sale_Order.TblSaleOrderHeader", b =>
                 {
                     b.Navigation("Details");
                 });

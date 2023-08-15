@@ -15,7 +15,7 @@ namespace CletusReyes.Repositories.Token
             this.configuration = configuration;
         }
 
-        public string CreateJwt(IdentityUser user, List<string> roles)
+        public string CreateJwt(IdentityUser user, List<string?> roles)
         {
             var claims = new List<Claim>();
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));

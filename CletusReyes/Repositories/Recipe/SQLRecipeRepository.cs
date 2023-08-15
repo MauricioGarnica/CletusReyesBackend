@@ -6,25 +6,24 @@ namespace CletusReyes.Repositories.Recipe
 {
     public class SQLRecipeRepository : IRecipeRepository
     {
-        private readonly CletusReyesDataDbContext dbContext;
+        private readonly CletusReyesDbContext dbContext;
 
-        public SQLRecipeRepository(CletusReyesDataDbContext dbContext)
+        public SQLRecipeRepository(CletusReyesDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
         public async Task<List<TblRecipeHeader>> GetAll()
         {
-            var recipes = dbContext.RecipeHeaders
-                .Include(recipe => recipe.Product)
-                    .ThenInclude(recipe => recipe.Size)
-                .Include(recipe => recipe.Product)
-                    .ThenInclude(recipe => recipe.Category)
-                .AsQueryable();
-
-            recipes = recipes.Where(recipe => recipe.Status == true);
-
-            return await recipes.ToListAsync();
+            return await dbContext.RecipeHeaders
+                                        .Include(header => header.Product)
+                                            .ThenInclude(product => product.Size)
+                                        .Include(header => header.Product)
+                                            .ThenInclude(product => product.Category)
+                                        .Include(header => header.Details)
+                                            .ThenInclude(detail => detail.RawMaterial)
+                                        .Where(header => header.Status)
+                                        .ToListAsync();
         }
 
         public async Task<TblRecipeHeader?> GetById(Guid id)
@@ -39,6 +38,7 @@ namespace CletusReyes.Repositories.Recipe
         {
             tblRecipeHeader.Created_at = DateTime.Now.ToString("G");
             tblRecipeHeader.Status = true;
+            tblRecipeHeader.Details = null;
             await dbContext.RecipeHeaders.AddAsync(tblRecipeHeader);
             await dbContext.SaveChangesAsync();
 

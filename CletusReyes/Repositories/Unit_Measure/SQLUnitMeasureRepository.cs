@@ -6,26 +6,16 @@ namespace CletusReyes.Repositories.Unit_Measure
 {
     public class SQLUnitMeasureRepository : IUnitMeasureRepository
     {
-        private readonly CletusReyesDataDbContext dbContext;
+        private readonly CletusReyesDbContext dbContext;
 
-        public SQLUnitMeasureRepository(CletusReyesDataDbContext dbContext)
+        public SQLUnitMeasureRepository(CletusReyesDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public async Task<List<TblUnitMeasure>> GetAll(string? filterOn = null, string? filterQuery = null)
+        public async Task<List<TblUnitMeasure>> GetAll()
         {
-            var unitMeasures = dbContext.UnitMeasures.AsQueryable();
-
-            if(!string.IsNullOrWhiteSpace(filterOn) && !string.IsNullOrWhiteSpace(filterQuery))
-            {
-                if(filterOn.Equals("Status", StringComparison.OrdinalIgnoreCase))
-                {
-                    unitMeasures = unitMeasures.Where(unit_measure => unit_measure.Status.Equals(filterQuery));
-                }
-            }
-
-            return await unitMeasures.ToListAsync();
+            return await dbContext.UnitMeasures.Where(unitMeasure => unitMeasure.Status).ToListAsync();
         }
 
         public async Task<TblUnitMeasure?> GetById(Guid id)
@@ -53,6 +43,7 @@ namespace CletusReyes.Repositories.Unit_Measure
             }
 
             unitMeasureExists.Name = tblUnitMeasure.Name;
+            unitMeasureExists.Description = tblUnitMeasure.Description;
             unitMeasureExists.UserIdUpdated = tblUnitMeasure.UserIdUpdated;
             unitMeasureExists.Updated_at = DateTime.Today.ToString("G");
             await dbContext.SaveChangesAsync();
@@ -69,7 +60,8 @@ namespace CletusReyes.Repositories.Unit_Measure
                 return null;
             }
 
-            dbContext.UnitMeasures.Remove(unitMeasureExists);
+            unitMeasureExists.Status = false;
+            unitMeasureExists.Updated_at = DateTime.Now.ToString("G");
             await dbContext.SaveChangesAsync();
 
             return unitMeasureExists;

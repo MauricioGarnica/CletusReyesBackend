@@ -87,12 +87,7 @@ namespace CletusReyes.Controllers
             {
                 var purchaseOrderUpdated = await purchaseOrderRepository.Update(id, newStatus);
 
-                if(purchaseOrderUpdated == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(mapper.Map<PurchaseOrderHeaderResponseDto>(purchaseOrderUpdated));
+                return purchaseOrderUpdated == null ? NotFound() : purchaseOrderUpdated[0] == "0" ? BadRequest(purchaseOrderUpdated[1]) : Ok(purchaseOrderUpdated[1]);
             }
             catch (Exception ex)
             {

@@ -6,9 +6,9 @@ namespace CletusReyes.Repositories.Raw_Material
 {
     public class SQLRawMaterialRepository : IRawMaterialRepository
     {
-        private readonly CletusReyesDataDbContext dbContext;
+        private readonly CletusReyesDbContext dbContext;
 
-        public SQLRawMaterialRepository(CletusReyesDataDbContext dbContext)
+        public SQLRawMaterialRepository(CletusReyesDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
@@ -70,6 +70,8 @@ namespace CletusReyes.Repositories.Raw_Material
             }
 
             rawMaterialExists.Status = false;
+            rawMaterialExists.Updated_at = DateTime.Now.ToString("G");
+            await dbContext.SaveChangesAsync();
 
             return rawMaterialExists;
         }

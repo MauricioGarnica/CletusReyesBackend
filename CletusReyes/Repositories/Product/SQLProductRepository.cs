@@ -6,11 +6,11 @@ namespace CletusReyes.Repositories.Product
 {
     public class SQLProductRepository : IProductRepository
     {
-        private readonly CletusReyesDataDbContext dbContext;
+        private readonly CletusReyesDbContext dbContext;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public SQLProductRepository(CletusReyesDataDbContext dbContext, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor)
+        public SQLProductRepository(CletusReyesDbContext dbContext, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor)
         {
             this.dbContext = dbContext;
             this.webHostEnvironment = webHostEnvironment;
@@ -62,7 +62,10 @@ namespace CletusReyes.Repositories.Product
             productUpdated.Quantity = tblProduct.Quantity;
             productUpdated.UserIdUpdated = tblProduct.UserIdUpdated;
             productUpdated.Updated_at = DateTime.Now.ToString("G");
-            productUpdated = await UploadImage(productUpdated);
+            if(productUpdated.File != null)
+            {
+                productUpdated = await UploadImage(productUpdated);
+            }
             await dbContext.SaveChangesAsync();
 
             return productUpdated;
@@ -92,7 +95,7 @@ namespace CletusReyes.Repositories.Product
             using var stream = new FileStream(localFilePath, FileMode.Create);
             await tblProduct.File.CopyToAsync(stream);
 
-            var urlFilePath = $"{httpContextAccessor.HttpContext.Request.Scheme}:://{httpContextAccessor.HttpContext.Request.Host}{httpContextAccessor.HttpContext.Request.PathBase}/Images/{tblProduct.FileName}{tblProduct.FileExtension}";
+            var urlFilePath = $"{httpContextAccessor.HttpContext.Request.Scheme}://{httpContextAccessor.HttpContext.Request.Host}{httpContextAccessor.HttpContext.Request.PathBase}/Images/{tblProduct.FileName}{tblProduct.FileExtension}";
             tblProduct.FilePath = urlFilePath;
 
             return tblProduct;

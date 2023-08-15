@@ -6,9 +6,9 @@ namespace CletusReyes.Repositories.Category
 {
     public class SQLCategoryRepository : ICategoryRepository
     {
-        private readonly CletusReyesDataDbContext dbContext;
+        private readonly CletusReyesDbContext dbContext;
 
-        public SQLCategoryRepository(CletusReyesDataDbContext dbContext)
+        public SQLCategoryRepository(CletusReyesDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

@@ -4,6 +4,6 @@ namespace CletusReyes.Repositories.Token
 {
     public interface ITokenRepository
     {
-        string CreateJwt(IdentityUser user, List<string> roles);
+        string CreateJwt(IdentityUser user, List<string?> roles);
     }
 }
