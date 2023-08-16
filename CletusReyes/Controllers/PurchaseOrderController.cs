@@ -23,14 +23,15 @@ namespace CletusReyes.Controllers
         }
 
         [HttpGet]
+        [Route("GetByStatus/{status:Guid}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromRoute] Guid status)
         {
             try
             {
-                var purchaseOrdersDomainModel = await purchaseOrderRepository.GetAll();
+                var purchaseOrdersDomainModel = await purchaseOrderRepository.GetAll(status);
 
-                return Ok(mapper.Map<PurchaseOrderHeaderResponseDto>(purchaseOrdersDomainModel));
+                return Ok(mapper.Map<List<PurchaseOrderResponseDto>>(purchaseOrdersDomainModel));
             }
             catch (Exception ex)
             {
@@ -40,7 +41,8 @@ namespace CletusReyes.Controllers
 
         [HttpGet]
         [Route("{id:Guid}")]
-        public async Task<IActionResult> GetById(Guid id)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             try
             {
@@ -62,7 +64,7 @@ namespace CletusReyes.Controllers
         [HttpPost]
         [ValidateModel]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create(AddPurchaseOrderHeaderRequestDomainModel addPurchaseOrderHeaderRequestDomainModel)
+        public async Task<IActionResult> Create([FromBody]AddPurchaseOrderHeaderRequestDomainModel addPurchaseOrderHeaderRequestDomainModel)
         {
             try
             {
@@ -81,7 +83,7 @@ namespace CletusReyes.Controllers
         [HttpPut]
         [Route("{id:Guid}/{newStatus:Guid}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update(Guid id, Guid newStatus)
+        public async Task<IActionResult> Update([FromRoute]Guid id, [FromRoute]Guid newStatus)
         {
             try
             {
@@ -98,7 +100,7 @@ namespace CletusReyes.Controllers
         [HttpDelete]
         [Route("{id:Guid}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             try
             {

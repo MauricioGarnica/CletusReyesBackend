@@ -6,6 +6,7 @@ namespace CletusReyes.Models.DTO.Purchase_Order
     {
         public Guid Id { get; set; }
         public float Total { get; set; }
+        public string Created_at { get; set; }
 
         public ProviderResponseDto Provider { get; set; }
         public PurchaseOrderStatusResponseDto PurchaseOrderStatus { get; set; }

@@ -4,6 +4,7 @@ using CletusReyes.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CletusReyes.Migrations
 {
     [DbContext(typeof(CletusReyesDbContext))]
-    partial class CletusReyesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230816004727_Add rows for users II")]
+    partial class AddrowsforusersII
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

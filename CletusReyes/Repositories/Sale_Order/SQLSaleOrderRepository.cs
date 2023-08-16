@@ -13,7 +13,7 @@ namespace CletusReyes.Repositories.Sale_Order
             this.dbContext = dbContext;
         }
 
-        public async Task<List<TblSaleOrderHeader>> GetAll()
+        public async Task<List<TblSaleOrderHeader>> GetAll(Guid status)
         {
             return await dbContext.SaleOrderHeaders
                                     .Include(header => header.User)
@@ -21,6 +21,7 @@ namespace CletusReyes.Repositories.Sale_Order
                                     .Include(header => header.Details)
                                         .ThenInclude(detail => detail.Product)
                                     .Where(header => header.Status)
+                                    .Where(header => header.SaleOrderStatusId == status)
                                     .ToListAsync();
         }
 

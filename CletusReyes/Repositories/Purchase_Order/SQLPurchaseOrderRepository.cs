@@ -13,12 +13,15 @@ namespace CletusReyes.Repositories.Purchase_Order
             this.dbContext = dbContext;
         }
 
-        public async Task<List<TblPurchaseOrderHeader>> GetAll()
+        public async Task<List<TblPurchaseOrderHeader>> GetAll(Guid status)
         {
             return await dbContext.PurchaseOrderHeaders
                                     .Include(header => header.PurchaseOrderStatus)
                                     .Include(header => header.Provider)
+                                    .Include(header => header.Details)
+                                        .ThenInclude(detail => detail.RawMaterial)
                                     .Where(header => header.Status)
+                                    .Where(header => header.PurchaseOrderStatusId == status)
                                     .ToListAsync();
         }
 
@@ -92,6 +95,7 @@ namespace CletusReyes.Repositories.Purchase_Order
                     {
                         detail.RawMaterial.Quantity += detail.Quantity;
                     }
+                    purchaseOrderUpdated.PurchaseOrderStatusId = newStatus;
                     await dbContext.SaveChangesAsync();
 
                     return new List<string>

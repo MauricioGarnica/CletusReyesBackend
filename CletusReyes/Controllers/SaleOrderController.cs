@@ -23,15 +23,15 @@ namespace CletusReyes.Controllers
         }
 
         [HttpGet]
+        [Route("GetByStatus/{status:Guid}")]
         [Authorize(Roles = "Admin, Customer")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromRoute] Guid status)
         {
             try
             {
-                var saleOrdersDomainModel = await saleOrderRepository.GetAll();
+                var saleOrdersDomainModel = await saleOrderRepository.GetAll(status);
 
-                return Ok(saleOrdersDomainModel);
-                //return Ok(mapper.Map<SaleOrderResponseDto>(saleOrdersDomainModel));
+                return Ok(mapper.Map<List<SaleOrderResponseDto>>(saleOrdersDomainModel));
             }
             catch (Exception ex)
             {
