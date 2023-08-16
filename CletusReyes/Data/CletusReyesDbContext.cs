@@ -15,7 +15,7 @@ namespace CletusReyes.Data
 {
     public class CletusReyesDbContext : DbContext
     {
-        public CletusReyesDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
+        public CletusReyesDbContext(DbContextOptions<CletusReyesDbContext> dbContextOptions) : base(dbContextOptions)
         {
 
         }

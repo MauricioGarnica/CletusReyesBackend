@@ -1,6 +1,7 @@
 using CletusReyes.Data;
 using CletusReyes.Mappings;
 using CletusReyes.Models.Domain_Model.Auth;
+using CletusReyes.Repositories.Analytical;
 using CletusReyes.Repositories.Auth;
 using CletusReyes.Repositories.Category;
 using CletusReyes.Repositories.Product;
@@ -58,6 +59,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 builder.Services.AddDbContext<CletusReyesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CletusReyesConnectionString")));
+builder.Services.AddDbContext<CletusReyesData>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CletusReyesDataWarehouseString")));
 builder.Services.AddScoped<IAuthRepository, SQLAuthRepository>();
 builder.Services.AddScoped<ISizeRepository, SQLSizeRepository>();
 builder.Services.AddScoped<ICategoryRepository, SQLCategoryRepository>();
@@ -69,6 +71,7 @@ builder.Services.AddScoped<IRecipeRepository, SQLRecipeRepository>();
 builder.Services.AddScoped<IPurchaseOrderRepository, SQLPurchaseOrderRepository>();
 builder.Services.AddScoped<ISaleOrderRepository, SQLSaleOrderRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<IAnalyticalRepository, SQLAnalyticalRepository>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 builder.Services.AddIdentityCore<TblUser>(options =>
 {
